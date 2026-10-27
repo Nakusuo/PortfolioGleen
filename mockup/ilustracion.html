@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ilustración — Glenn</title>
+<title>Painting — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
@@ -30,37 +30,38 @@
 </style>
 </head>
 <body>
-<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<div class="mockbar">MOCKUP · Zine Nº 01 · dotted boxes are placeholders for her artwork</div>
 <header class="masthead">
-  <a href="mixed-media.html">obras</a>
-  <a class="badge" href="index.html" aria-label="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
-  <a href="encargos.html">encargos</a>
+  <a href="mixed-media.html" data-es="obras">work</a>
+  <a class="badge" href="index.html" aria-label="Glenn, back to the cover" data-es-aria="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
+  <a href="encargos.html" data-es="servicios">services</a>
 </header>
 <main class="zine" id="zine">
   <article style="--sheet-tilt:-.6deg" class="page green" aria-labelledby="t">
     <div class="head" style="position:relative">
       <svg class="doodle draw ink hide-sm" style="--ar:1;right:6%;top:-6px;--w:64px;--r:12deg" aria-hidden="true"><use href="assets/doodles.svg#heart"/></svg>
-      <h1 class="riso-title plain" id="t" data-t="Ilustración">Ilustración</h1>
-      <span class="hand">pinturas, y a veces en la tablet</span>
+      <h1 class="riso-title plain" id="t" data-t="Painting" data-es="Pintura">Painting</h1>
+      <span class="hand" data-es="óleo y acrílico sobre lienzo, y algo de digital">oil &amp; acrylic on canvas, and some digital</span>
     </div>
-    <div class="filters" role="group" aria-label="Filtrar por técnica">
-      <button class="dymo" data-f="all" aria-pressed="true">todo</button>
+    <div class="filters" role="group" aria-label="Filter by medium" data-es-aria="Filtrar por técnica">
+      <button class="dymo" data-f="all" aria-pressed="true" data-es="todo">all</button>
+      <button class="dymo" data-f="tradicional" aria-pressed="false" data-es="pintura">painting</button>
       <button class="dymo" data-f="digital" aria-pressed="false">digital</button>
-      <button class="dymo" data-f="tradicional" aria-pressed="false">pintura</button>
     </div>
     <p class="sr-only" role="status" id="count"></p>
     <div class="grid3">
-      <a class="frame" style="--r:-1.4deg" href="#" data-k="tradicional" data-obra="Unicornio|Acrílico + óleo pastel|A3|2026|Print disponible"><div class="asset" data-asset="ilustración 1 (ej. unicornio)"></div><p>Unicornio <small>pintura</small></p></a>
-      <a class="frame" style="--r:2.2deg" href="#" data-k="tradicional" data-obra="Jardín rosa|Gouache|A4|2026|Original disponible"><div class="asset" data-asset="ilustración 2"></div><p>Jardín rosa <small>gouache</small></p></a>
-      <a class="frame" style="--r:-.6deg" href="#" data-k="digital" data-obra="Portada|Procreate|A4 300 dpi|2025|Encargo"><div class="asset" data-asset="ilustración 3"></div><p>Portada <small>digital</small></p></a>
-      <a class="frame" style="--r:1.1deg" href="#" data-k="tradicional" data-obra="Personaje|Acuarela|A5|2025|Original disponible"><div class="asset" data-asset="ilustración 4"></div><p>Personaje <small>acuarela</small></p></a>
-      <a class="frame" style="--r:-2.5deg" href="#" data-k="digital" data-obra="Póster|Procreate|A3 300 dpi|2025|Print disponible"><div class="asset" data-asset="ilustración 5"></div><p>Póster <small>digital</small></p></a>
-      <a class="frame" style="--r:.8deg" href="#" data-k="tradicional" data-obra="Estudio|Tinta|A5|2024|Sketchbook"><div class="asset" data-asset="ilustración 6"></div><p>Estudio <small>tinta</small></p></a>
+      <a class="frame" style="--r:-1.4deg" href="#" data-k="tradicional" data-obra="Maybe because as a kid I thought I was a unicorn|Original on canvas|5 × 7 in|2026|Personal work" data-obra-es="Tal vez sea porque de pequeña me creía un unicornio|Original en lienzo|5 × 7 in|2026|Obra personal"><div class="asset" data-asset="unicornio.jpg" data-src="assets/obras/unicornio.jpg"></div><p><span data-es="Unicornio">Unicorn</span> <small data-es="óleo sobre lienzo · 5×7">oil on canvas · 5×7</small></p></a>
+      <a class="frame" style="--r:2.2deg" href="#" data-k="tradicional" data-obra="Painting 02|Acrylic on canvas|—|2026|Personal work" data-obra-es="Pintura 02|Acrílico sobre lienzo|—|2026|Obra personal"><div class="asset" data-asset="pintura-02.jpg" data-src="assets/obras/pintura-02.jpg"></div><p><span data-es="Pintura 02">Painting 02</span> <small data-es="acrílico">acrylic</small></p></a>
+      <a class="frame" style="--r:-.6deg" href="#" data-k="digital" data-obra="Digital 03|Photoshop|—|2025|Personal work" data-obra-es="Digital 03|Photoshop|—|2025|Obra personal"><div class="asset" data-asset="digital-03.jpg" data-src="assets/obras/digital-03.jpg"></div><p><span>Digital 03</span> <small>photoshop</small></p></a>
+      <a class="frame" style="--r:1.1deg" href="#" data-k="tradicional" data-obra="Painting 04|Oil on canvas|—|2025|Personal work" data-obra-es="Pintura 04|Óleo sobre lienzo|—|2025|Obra personal"><div class="asset" data-asset="pintura-04.jpg" data-src="assets/obras/pintura-04.jpg"></div><p><span data-es="Pintura 04">Painting 04</span> <small data-es="óleo">oil</small></p></a>
+      <a class="frame" style="--r:-2.5deg" href="#" data-k="digital" data-obra="Digital 05|Photoshop|—|2025|Personal work" data-obra-es="Digital 05|Photoshop|—|2025|Obra personal"><div class="asset" data-asset="digital-05.jpg" data-src="assets/obras/digital-05.jpg"></div><p><span>Digital 05</span> <small>photoshop</small></p></a>
+      <a class="frame" style="--r:.8deg" href="#" data-k="tradicional" data-obra="Painting 06|Acrylic, oil pastel|—|2024|Personal work" data-obra-es="Pintura 06|Acrílico, óleo pastel|—|2024|Obra personal"><div class="asset" data-asset="pintura-06.jpg" data-src="assets/obras/pintura-06.jpg"></div><p><span data-es="Pintura 06">Painting 06</span> <small data-es="acrílico">acrylic</small></p></a>
     </div>
-    <span class="side-note" aria-hidden="true">pintura · digital · 2024—2026</span>
+    <span class="side-note" aria-hidden="true" data-es="pintura · digital · 2024—2026">painting · digital · 2024—2026</span>
     <span class="folio">03</span>
   </article>
 </main>
+<script src="assets/i18n.js"></script>
 <script src="assets/zine.js"></script>
 <script>
 const frames = document.querySelectorAll(".frame");
@@ -72,7 +73,7 @@ document.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
     f.hidden = !show;
     if (show) { n++; f.classList.remove("pop"); void f.offsetWidth; f.classList.add("pop"); }
   });
-  document.getElementById("count").textContent = `${n} ilustraciones`;
+  document.getElementById("count").textContent = t(`${n} pieces`, `${n} obras`);
 });
 </script>
 </body>

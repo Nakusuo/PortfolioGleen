@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fangirl — Glenn</title>
+<title>Music — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
@@ -13,7 +13,7 @@
 .center { text-align: center; }
 .fandoms { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 18px 0 36px; }
 /* Hoja de stickers: al pasar el ratón se despega la esquina */
-.sheet { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; justify-items: center; }
+.sheet { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; justify-items: center; }
 .stk { position: relative; width: 100%; max-width: 220px; aspect-ratio: 1; padding: 10px; background: #fff; display: block; text-decoration: none;
   box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 10px 18px -8px rgba(0,0,0,.45); rotate: var(--r); transition: rotate .3s var(--pop), scale .3s var(--pop), opacity .3s;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
@@ -30,6 +30,14 @@
 .noticed { margin-top: 72px; position: relative; }
 .noticed .head { justify-content: center; text-align: center; }
 .noticed .stamp { font-size: clamp(1.6rem, 5vw, 3rem); background: #fff; rotate: -4.4deg; }
+.section-label { font: 700 .85rem var(--type); text-transform: uppercase; letter-spacing: .2em; margin: 0 0 18px; }
+.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.case { display: block; text-decoration: none; background: #fff; padding: 10px 10px 16px; rotate: var(--r); box-shadow: 0 1px 2px rgba(0,0,0,.15), 0 14px 22px -12px rgba(0,0,0,.4); transition: rotate .3s ease, translate .3s ease; }
+.case:hover, .case:focus-visible { rotate: 0deg; translate: 0 -4px; }
+.case .asset { aspect-ratio: 4 / 5; }
+.case h3 { font: 400 1.4rem/1 var(--block); text-transform: uppercase; margin: 14px 2px 6px; }
+.case p { margin: 0 2px; font-size: .92rem; line-height: 1.4; }
+@media (max-width: 860px) { .cases { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
 .bg-word { position: absolute; z-index: -1; top: 21%; left: -4%; right: -4%; font: 400 clamp(6rem, 22vw, 18rem)/.8 var(--block); color: transparent; -webkit-text-stroke: 2px rgba(17,17,17,.18); white-space: nowrap; pointer-events: none; text-transform: uppercase; }
 .wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 28px; }
 .shot { background: #111; color: #fff; border-radius: 26px; padding: 8px 8px 14px; rotate: var(--r); box-shadow: 0 1px 2px rgba(0,0,0,.15), 0 14px 22px -12px rgba(0,0,0,.4); transition: rotate .3s var(--pop); }
@@ -42,51 +50,71 @@
 </style>
 </head>
 <body>
-<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<div class="mockbar">MOCKUP · Zine Nº 01 · dotted boxes are placeholders for her artwork</div>
 <header class="masthead">
-  <a href="mixed-media.html">obras</a>
-  <a class="badge" href="index.html" aria-label="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
-  <a href="encargos.html">encargos</a>
+  <a href="mixed-media.html" data-es="obras">work</a>
+  <a class="badge" href="index.html" aria-label="Glenn, back to the cover" data-es-aria="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
+  <a href="encargos.html" data-es="servicios">services</a>
 </header>
 <main class="zine" id="zine">
   <article style="--sheet-tilt:.3deg" class="page pink torn" aria-labelledby="t">
     <div class="center" style="position:relative">
       <svg class="doodle draw ink hide-sm" style="--ar:1;left:12%;top:4px;--w:44px" aria-hidden="true"><use href="assets/doodles.svg#spark"/></svg>
       <svg class="doodle draw ink hide-sm" style="--ar:1;right:14%;top:40px;--w:30px;--r:20deg" aria-hidden="true"><use href="assets/doodles.svg#spark"/></svg>
-      <h1 class="riso-title" id="t" data-t="Fangirl!!">Fangirl!!</h1>
-      <p class="hand">conciertos y mis artistas favoritos ♡</p>
+      <h1 class="riso-title" id="t" data-t="Music" data-es="Música">Music</h1>
+      <p class="hand" data-es="giras, artistas y fandoms">tours, artists &amp; fandoms</p>
     </div>
-    <div class="fandoms" role="group" aria-label="Filtrar por fandom">
-      <button class="dymo" data-f="all" aria-pressed="true">todos</button>
-      <button class="dymo" data-f="f1" aria-pressed="false">twenty one pilots</button>
-      <button class="dymo" data-f="f2" aria-pressed="false">freen sarocha</button>
-      <button class="dymo" data-f="f3" aria-pressed="false">hilary duff</button>
-    </div>
-    <div class="sheet">
-      <a class="stk" href="#" data-k="f1" style="--r:-6deg" data-obra="Concierto 1|Digital|A4|2026|Print disponible"><div class="asset" data-asset="arte de concierto 1"></div><span class="dymo">tøp</span></a>
-      <a class="stk round" href="#" data-k="f2" style="--r:5deg" data-obra="Concierto 2|Acuarela|A5|2026|Original disponible"><div class="asset" data-asset="arte de concierto 2"></div><span class="dymo">freen</span></a>
-      <a class="stk blob" href="#" data-k="f1" style="--r:-3deg" data-obra="Concierto 3|Collage|A5|2025|Vendida"><div class="asset" data-asset="arte de concierto 3"></div><span class="dymo">tøp</span></a>
-      <a class="stk" href="#" data-k="f3" style="--r:8deg" data-obra="Concierto 4|Digital|A4|2025|Sticker disponible"><div class="asset" data-asset="arte de concierto 4"></div><span class="dymo">hilary</span></a>
-      <a class="stk round" href="#" data-k="f3" style="--r:-7deg" data-obra="Concierto 5|Digital|A4|2025|Print disponible"><div class="asset" data-asset="arte de concierto 5"></div><span class="dymo">hilary</span></a>
-      <a class="stk" href="#" data-k="f2" style="--r:3deg" data-obra="Concierto 6|Gouache|A5|2024|Vendida"><div class="asset" data-asset="arte de concierto 6"></div><span class="dymo">freen</span></a>
-      <a class="stk blob" href="#" data-k="f1" style="--r:-4deg" data-obra="Concierto 7|Digital|A4|2024|Print disponible"><div class="asset" data-asset="arte de concierto 7"></div><span class="dymo">tøp</span></a>
-      <a class="stk round" href="#" data-k="f2" style="--r:6deg" data-obra="Concierto 8|Marcadores|A5|2024|Sketchbook"><div class="asset" data-asset="arte de concierto 8"></div><span class="dymo">freen</span></a>
-    </div>
+
+    <!-- Trabajos para artistas: lo primero que busca un manager -->
+    <section aria-labelledby="cw" class="client-work">
+      <h2 id="cw" class="section-label" data-es="Trabajos para artistas">Work for artists</h2>
+      <div class="cases">
+        <a class="case" href="#" style="--r:-1.6deg" data-obra="Hilary Duff — Lucky Me Tour|Mixed media animation|Show announcement · Honda Stadium|2026|Client project" data-obra-es="Hilary Duff — Lucky Me Tour|Animación mixed media|Anuncio del show · Honda Stadium|2026|Proyecto para cliente">
+          <div class="asset" data-asset="hilary-duff.jpg" data-src="assets/obras/hilary-duff.jpg"></div>
+          <h3>Hilary Duff</h3><p data-es="Animación mixed media para el anuncio de <i>The Lucky Me Tour</i> en el Honda Stadium.">Mixed media animation for the <i>Lucky Me Tour</i> announcement at Honda Stadium.</p>
+        </a>
+        <a class="case" href="#" style="--r:1.2deg" data-obra="sombr — Honda Center|Mixed media graphics|Sold-out show|2026|Client project" data-obra-es="sombr — Honda Center|Gráficas mixed media|Show con entradas agotadas|2026|Proyecto para cliente">
+          <div class="asset" data-asset="sombr.jpg" data-src="assets/obras/sombr.jpg"></div>
+          <h3>sombr</h3><p data-es="Gráficas mixed media para su show con entradas agotadas en el Honda Center.">Mixed media graphics for the sold-out show at Honda Center.</p>
+        </a>
+        <a class="case" href="#" style="--r:-.7deg" data-obra="twenty one pilots — Hometown|Mixed media animation|Ohio Stadium · with Reel Bear Media|2026|Animation" data-obra-es="twenty one pilots — Hometown|Animación mixed media|Ohio Stadium · con Reel Bear Media|2026|Animación">
+          <div class="asset" data-asset="twenty-one-pilots.jpg" data-src="assets/obras/twenty-one-pilots.jpg"></div>
+          <h3>twenty one pilots</h3><p data-es="<i>Hometown</i>: animación mixed media por su show en el Ohio Stadium, con Reel Bear Media.">Mixed media animation for their Ohio Stadium show, with Reel Bear Media.</p>
+        </a>
+      </div>
+    </section>
+
+    <section aria-labelledby="fa" style="margin-top:64px">
+      <h2 id="fa" class="section-label" data-es="Fan art">Fan art</h2>
+      <div class="fandoms" role="group" aria-label="Filter by artist" data-es-aria="Filtrar por artista">
+        <button class="dymo" data-f="all" aria-pressed="true" data-es="todos">all</button>
+        <button class="dymo" data-f="f1" aria-pressed="false">twenty one pilots</button>
+        <button class="dymo" data-f="f2" aria-pressed="false">freen sarocha</button>
+        <button class="dymo" data-f="f3" aria-pressed="false">hilary duff</button>
+      </div>
+      <div class="sheet">
+        <a class="stk" href="#" data-k="f1" style="--r:-6deg" data-obra="twenty one pilots 01|Mixed media|—|2026|Fan art" data-obra-es="twenty one pilots 01|Mixed media|—|2026|Fan art"><div class="asset" data-asset="fan-top-01.jpg" data-src="assets/obras/fan-top-01.jpg"></div><span class="dymo">tøp</span></a>
+        <a class="stk round" href="#" data-k="f2" style="--r:5deg" data-obra="Freen Sarocha|Mixed media|—|2026|Fan art" data-obra-es="Freen Sarocha|Mixed media|—|2026|Fan art"><div class="asset" data-asset="fan-freen.jpg" data-src="assets/obras/fan-freen.jpg"></div><span class="dymo">freen</span></a>
+        <a class="stk blob" href="#" data-k="f1" style="--r:-3deg" data-obra="twenty one pilots 02|Mixed media|—|2025|Fan art" data-obra-es="twenty one pilots 02|Mixed media|—|2025|Fan art"><div class="asset" data-asset="fan-top-02.jpg" data-src="assets/obras/fan-top-02.jpg"></div><span class="dymo">tøp</span></a>
+        <a class="stk" href="#" data-k="f3" style="--r:8deg" data-obra="Hilary Duff|Mixed media, sequins|—|2025|Fan art" data-obra-es="Hilary Duff|Mixed media, lentejuelas|—|2025|Fan art"><div class="asset" data-asset="fan-hilary.jpg" data-src="assets/obras/fan-hilary.jpg"></div><span class="dymo">hilary</span></a>
+      </div>
+    </section>
+
     <section class="noticed" aria-labelledby="nt">
-      <div class="head" style="position:relative"><h2 id="nt" class="stamp">noticed!</h2><svg class="doodle draw ink" style="--ar:1.875;left:calc(50% - 170px);top:-26px;--w:340px;--r:-4deg" aria-hidden="true"><use href="assets/doodles.svg#circle"/></svg></div>
-      <p class="center hand" style="margin:0">cuando lo vieron ellos 😭</p>
+      <div class="head" style="position:relative"><h2 id="nt" class="stamp" data-es="compartido por los artistas">shared by the artists</h2><svg class="doodle draw ink" style="--ar:1.875;left:calc(50% - 210px);top:-26px;--w:420px;--r:-4deg" aria-hidden="true"><use href="assets/doodles.svg#circle"/></svg></div>
       <div class="wall">
-        <figure class="shot" style="--r:-3deg"><div class="asset" data-asset="captura historia 1"></div><p>@artista1<small>compartió “corazón de concierto”</small></p></figure>
-        <figure class="shot" style="--r:2deg"><div class="asset" data-asset="captura historia 2"></div><p>@artista2<small>respondió a mi dibujo</small></p></figure>
-        <figure class="shot" style="--r:-1deg"><div class="asset" data-asset="captura historia 3"></div><p>@artista3<small>lo subió a su historia</small></p></figure>
-        <figure class="shot" style="--r:4deg"><div class="asset" data-asset="captura historia 4"></div><p>@artista4<small>le dio like ♡</small></p></figure>
+        <figure class="shot" style="--r:-3deg"><div class="asset" data-asset="repost-1.jpg" data-src="assets/obras/repost-1.jpg"></div><p>@artist<small data-es="compartió la pieza en sus historias">reposted the piece to their stories</small></p></figure>
+        <figure class="shot" style="--r:2deg"><div class="asset" data-asset="repost-2.jpg" data-src="assets/obras/repost-2.jpg"></div><p>@artist<small data-es="compartió la pieza en sus historias">reposted the piece to their stories</small></p></figure>
+        <figure class="shot" style="--r:-1deg"><div class="asset" data-asset="repost-3.jpg" data-src="assets/obras/repost-3.jpg"></div><p>@artist<small data-es="compartió la pieza en sus historias">reposted the piece to their stories</small></p></figure>
+        <figure class="shot" style="--r:4deg"><div class="asset" data-asset="repost-4.jpg" data-src="assets/obras/repost-4.jpg"></div><p>@artist<small data-es="compartió la pieza en sus historias">reposted the piece to their stories</small></p></figure>
       </div>
     </section>
     <span class="star" style="top:5%;left:8%;--s:56px;--r:-10deg" aria-hidden="true"></span>
-    <span class="bg-word" aria-hidden="true">fangirl fangirl</span>
+    <span class="bg-word" aria-hidden="true">music music</span>
     <span class="folio">04</span>
   </article>
 </main>
+<script src="assets/i18n.js"></script>
 <script src="assets/zine.js"></script>
 <script>
 document.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {

@@ -39,19 +39,30 @@ animación.
 
 ## Qué tendrá
 
+Está pensado para **managers, sellos, agencias de PR y marcas** que quieran
+contratarla. Va **en inglés por defecto**, con un botón **EN / ES** en la
+cabecera que recuerda la elección.
+
 La web es un zine: cada sección es una página con su propio diseño y se pasa de
-una a otra con las pestañas laterales, los botones del pie o las flechas del teclado.
+una a otra con las pestañas laterales, los botones del pie, la esquina doblada,
+las flechas del teclado o deslizando el dedo.
 
 | Pág. | Sección | Qué hace |
 |---|---|---|
-| 01 | Portada | Nombre en letras recortadas, su personaje y un índice que asoma cada sección. |
-| 02 | Mixed media | Fotos intervenidas con pintura, glitter y pedrería, sobre una mesa donde se arrastran. |
-| 03 | Ilustración | Galería con filtro digital/tradicional. |
-| 04 | Fangirl | Arte de conciertos con filtro por fandom y un muro "noticed!" de artistas que la compartieron. |
-| 05 | Detrás | Deslizador que va sumando las capas: foto, pintura, brillo y stickers. |
-| 06 | Encargos | Calculadora: armas tu encargo y se imprime un ticket con el precio. |
-| 07 | Sobre mí | Polaroid que se voltea y carta que se escribe a máquina. |
-| 08 | Contacto | Cupón para recortar que llega con el ticket ya pegado. |
+| 01 | Cover | Nombre en letras recortadas, video en loop, clientes y un índice que asoma cada sección. |
+| 02 | Mixed media | Fotos intervenidas y animación, sobre una mesa donde se arrastran. |
+| 03 | Painting | Pinturas y digital, con filtro. |
+| 04 | Music | Trabajos para artistas (Hilary Duff, sombr, twenty one pilots), fan art y artistas que compartieron su obra. |
+| 05 | Process | Deslizador por las etapas: pintar a mano, escanear, limpiar y animar. |
+| 06 | Services | Servicios y un armador de brief (tipo, formatos, uso, plazo, presupuesto). |
+| 07 | About | Bio, clientes y proyectos, herramientas. |
+| 08 | Contact | Formulario para empresas que llega con el brief ya pegado. |
+
+### Imágenes
+
+Las obras van en `mockup/assets/obras/` con los nombres de
+[`LEEME.md`](mockup/assets/obras/LEEME.md) y aparecen solas en la maqueta. Esa
+carpeta no se sube a GitHub hasta que Glenn autorice publicar su obra.
 
 ## Stack previsto
 

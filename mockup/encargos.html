@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Encargos — Glenn</title>
+<title>Services — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
@@ -14,7 +14,9 @@
 .builder { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; align-items: start; }
 .builder fieldset { border: 0; border-top: 2px dashed var(--ink); background: none; padding: 18px 0 8px; margin: 0 0 18px; }
 .builder legend { font: 400 1.6rem var(--hand); padding: 0 8px 0 0; }
-.choice { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.choice { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mini-l { font-weight: 700; flex-basis: 100%; }
+.line span:last-child { text-align: right; }
 .choice label { position: relative; display: grid; gap: 6px; padding: 10px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.15); cursor: var(--cursor-hand); transition: translate .15s, box-shadow .15s, background .15s; }
 .choice label:hover { translate: 0 -3px; }
 .choice input { position: absolute; opacity: 0; }
@@ -60,106 +62,125 @@ summary { font-weight: 700; cursor: var(--cursor-hand); min-height: 32px; }
 </style>
 </head>
 <body>
-<div class="mockbar">MAQUETA · Zine Nº 01 · precios de ejemplo: los pondrá ella</div>
+<div class="mockbar">MOCKUP · Zine Nº 01 · process and terms are placeholders for Glenn to confirm</div>
 <header class="masthead">
-  <a href="mixed-media.html">obras</a>
-  <a class="badge" href="index.html" aria-label="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
-  <a href="encargos.html">encargos</a>
+  <a href="mixed-media.html" data-es="obras">work</a>
+  <a class="badge" href="index.html" aria-label="Glenn, back to the cover" data-es-aria="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
+  <a href="encargos.html" data-es="servicios">services</a>
 </header>
 <main class="zine" id="zine">
   <article style="--sheet-tilt:.55deg" class="page yellow" aria-labelledby="t">
     <div class="head">
-      <h1 class="riso-title" id="t" data-t="Encargos">Encargos</h1>
-      <span class="stamp" style="background:#fff;rotate:-4.6deg">open agenda!</span>
+      <h1 class="riso-title" id="t" data-t="Services" data-es="Servicios">Services</h1>
+      <span class="stamp" style="background:#fff;rotate:-4.6deg" data-es="open agenda!">open for projects</span>
     </div>
-    <p class="lead">¿quieres una? elige qué y te digo más o menos cuánto. el precio final lo vemos juntas.</p>
+    <p class="lead" data-es="Para sellos, managers, agencias y marcas. Arma un brief en un minuto y te respondo con propuesta, plazos y presupuesto.">For labels, managers, agencies and brands. Put together a brief in a minute and I'll reply with a proposal, timeline and quote.</p>
 
-    <div class="builder" style="position:relative">
-      <span class="margin-note red hide-sm" style="right:60px;top:-34px;--r:5deg" aria-hidden="true">más o menos, eh</span>
-      <svg class="doodle draw hide-sm" style="--ar:0.667;right:28px;top:-26px;--w:30px;--r:-20deg" aria-hidden="true"><use href="assets/doodles.svg#arrow-down"/></svg>
+    <div class="builder">
       <form id="build" onsubmit="return false">
         <fieldset>
-          <legend>1. ¿qué quieres?</legend>
+          <legend data-es="1. ¿qué necesitas?">1. what do you need?</legend>
           <div class="choice">
-            <label><input type="radio" name="base" value="foto" data-p="60" checked><div class="asset" data-asset="ejemplo foto intervenida"></div><b>Foto intervenida</b><small>tu foto de concierto o de tu artista · A4 · ~1 semana</small></label>
-            <label><input type="radio" name="base" value="retrato" data-p="150"><div class="asset" data-asset="ejemplo retrato mixed media"></div><b>Retrato mixed media</b><small>tu foto + pintura + collage · A3 · ~2 semanas</small></label>
-            <label><input type="radio" name="base" value="pintura" data-p="220"><div class="asset" data-asset="ejemplo pintura"></div><b>Pintura / ilustración</b><small>pieza original · ~3 semanas</small></label>
+            <label><input type="radio" name="base" value="animation" checked><div class="asset" data-asset="service-animation.jpg" data-src="assets/obras/hilary-duff.jpg"></div><b data-es="Animación mixed media">Mixed media animation</b><small data-es="anuncios de giras, videoclips, campañas en redes">tour announcements, music videos, social campaigns</small></label>
+            <label><input type="radio" name="base" value="stage"><div class="asset" data-asset="service-stage.jpg" data-src="assets/obras/sombr.jpg"></div><b data-es="Visuales para shows">Tour &amp; stage visuals</b><small data-es="gráficas para pantallas y shows en vivo">screen graphics for live shows</small></label>
+            <label><input type="radio" name="base" value="cover"><div class="asset" data-asset="service-cover.jpg" data-src="assets/obras/quien-vive.jpg"></div><b data-es="Portadas y merch">Cover art &amp; merch</b><small data-es="singles, álbumes, prints y merch">singles, albums, prints and merch</small></label>
+            <label><input type="radio" name="base" value="original"><div class="asset" data-asset="service-original.jpg" data-src="assets/obras/unicornio.jpg"></div><b data-es="Piezas originales y colaboraciones">Original pieces &amp; collabs</b><small data-es="colaboraciones con marcas, piezas únicas">brand collaborations, one-off pieces</small></label>
           </div>
         </fieldset>
         <fieldset>
-          <legend>2. detalles</legend>
-          <div class="row2">
-            <span style="font-weight:700" id="pj-l">Personas extra</span>
-            <div class="stepper" role="group" aria-labelledby="pj-l">
-              <button type="button" data-d="-1" aria-label="Quitar persona">−</button>
-              <output id="pj" aria-live="polite">0</output>
-              <button type="button" data-d="1" aria-label="Añadir persona">+</button>
-            </div>
-            <label class="check">Brillo
-              <select id="fondo"><option value="0">glitter normal</option><option value="40">full pedrería + lentejuelas (+40)</option></select>
-            </label>
+          <legend data-es="2. detalles">2. details</legend>
+          <div class="row2" role="group" aria-labelledby="fmt-l">
+            <span id="fmt-l" class="mini-l" data-es="Formatos">Formats</span>
+            <label class="check"><input type="checkbox" name="fmt" value="9:16" checked> <span data-es="Vertical 9:16">Vertical 9:16</span></label>
+            <label class="check"><input type="checkbox" name="fmt" value="16:9"> <span data-es="Horizontal 16:9">Horizontal 16:9</span></label>
+            <label class="check"><input type="checkbox" name="fmt" value="1:1"> <span data-es="Cuadrado">Square</span></label>
+            <label class="check"><input type="checkbox" name="fmt" value="print"> <span data-es="Impreso / físico">Print / physical</span></label>
           </div>
           <div class="row2">
-            <label class="check"><input type="checkbox" id="urg"> Lo necesito en menos de una semana (+30 %)</label>
-            <label class="check"><input type="checkbox" id="com"> Uso comercial (se cotiza aparte)</label>
+            <label class="check"><span data-es="Uso">Usage</span>
+              <select id="uso">
+                <option value="social" data-es="Redes sociales">Social media</option>
+                <option value="campaign" data-es="Campaña y publicidad">Campaign &amp; ads</option>
+                <option value="stage" data-es="Shows y transmisión">Live shows &amp; broadcast</option>
+                <option value="merch" data-es="Merch e impresión">Merch &amp; print</option>
+              </select>
+            </label>
+            <label class="check"><span data-es="Plazo">Timeline</span>
+              <select id="plazo">
+                <option value="flex" data-es="Flexible">Flexible</option>
+                <option value="std" data-es="2–4 semanas">2–4 weeks</option>
+                <option value="rush" data-es="Urgente (menos de 2 semanas)">Rush (under 2 weeks)</option>
+              </select>
+            </label>
+            <label class="check"><span data-es="Presupuesto">Budget</span>
+              <select id="budget">
+                <option value="tbd" data-es="Por conversar">To discuss</option>
+                <option value="<500">&lt; USD 500</option>
+                <option value="500-1500">USD 500–1,500</option>
+                <option value="1500-5000">USD 1,500–5,000</option>
+                <option value="5000+">USD 5,000+</option>
+              </select>
+            </label>
           </div>
         </fieldset>
       </form>
 
       <aside class="receipt torn" aria-labelledby="rt">
         <h2 id="rt">GLENN STUDIO</h2>
-        <p class="c">ticket de encargo · 2026</p>
+        <p class="c" data-es="brief de proyecto · 2026">project brief · 2026</p>
         <hr>
         <div id="lines"></div>
         <hr>
-        <div class="total" aria-live="polite"><span>TOTAL</span><span id="total">S/ 60</span></div>
         <div class="barcode" aria-hidden="true"></div>
-        <a class="btn" id="ask" href="contacto.html">Pedir con este ticket →</a>
-        <p class="note">precio orientativo · se confirma al ver tu idea</p>
+        <a class="btn" id="ask" href="contacto.html" data-es="Enviar este brief →">Send this brief →</a>
+        <p class="note" data-es="Cada proyecto se cotiza aparte. Respondo en 48 h.">Every project is quoted individually. Reply within 48 h.</p>
       </aside>
     </div>
 
     <div class="rules">
       <div>
-        <h3>Dibujo / no dibujo</h3>
-        <ul class="checks"><li>Tus artistas favoritos</li><li>Fotos de conciertos</li><li>Retratos tuyos</li><li>Regalos</li><li>Mascotas</li><li class="no">NSFW</li></ul>
-        <h3 style="margin-top:28px">Cómo funciona</h3>
-        <ol class="steps"><li>Me mandas el ticket con tu idea.</li><li>Te confirmo precio y fecha. Reservas con el 50 %.</li><li>Apruebas el boceto (2 rondas de cambios).</li><li>Pagas el resto y recibes tu obra ♡</li></ol>
+        <h3 data-es="Cómo trabajamos">How it works</h3>
+        <ol class="steps">
+          <li data-es="Brief y llamada corta.">Brief and a short call.</li>
+          <li data-es="Propuesta, plazos y presupuesto. Se reserva con el 50 %.">Proposal, timeline and quote. A 50% deposit books the slot.</li>
+          <li data-es="Moodboard y pruebas, con 2 rondas de cambios.">Moodboard and tests, with 2 rounds of revisions.</li>
+          <li data-es="Producción y entrega en todos los formatos acordados.">Production and delivery in every agreed format.</li>
+        </ol>
       </div>
       <div>
-        <h3>Preguntas</h3>
-        <details><summary>¿Cómo pago?</summary><p>Yape, Plin, transferencia o PayPal.</p></details>
-        <details><summary>¿Haces envíos del original?</summary><p>Sí, a todo el país. El envío se cotiza según destino.</p></details>
-        <details><summary>¿Puedo usarlo en redes?</summary><p>Sí, con crédito. El uso comercial se cotiza aparte.</p></details>
-        <details><summary>¿Y si no me gusta el boceto?</summary><p>Tienes 2 rondas de cambios incluidas antes de pasar al color.</p></details>
+        <h3 data-es="Preguntas frecuentes">FAQ</h3>
+        <details><summary data-es="¿Trabajas con clientes de otros países?">Do you work with international clients?</summary><p data-es="Sí. Trabajo a distancia; los proyectos para Hilary Duff, sombr y twenty one pilots fueron para shows en Estados Unidos.">Yes. I work remotely — the Hilary Duff, sombr and twenty one pilots projects were for shows in the US.</p></details>
+        <details><summary data-es="¿Qué derechos de uso incluye?">What usage rights are included?</summary><p data-es="Se definen en cada propuesta según el uso: redes, campaña, shows o merch.">They're defined in each proposal based on usage: social, campaign, live shows or merch.</p></details>
+        <details><summary data-es="¿Cuánto tarda una animación?">How long does an animation take?</summary><p data-es="Depende de la duración y la técnica. Lo vemos en la propuesta; hay opción urgente.">It depends on length and technique. We set it in the proposal; rush delivery is available.</p></details>
+        <details><summary data-es="¿Entregas los originales físicos?">Do you deliver the physical originals?</summary><p data-es="Se puede acordar. Por defecto se entregan los archivos finales.">It can be arranged. By default, final files are delivered.</p></details>
       </div>
     </div>
     <span class="folio">06</span>
   </article>
 </main>
+<script src="assets/i18n.js"></script>
 <script src="assets/zine.js"></script>
 <script>
+// El brief se arma con lo elegido y viaja al formulario de contacto
 const $ = id => document.getElementById(id);
-let pj = 0;
-document.querySelectorAll("[data-d]").forEach(b => b.onclick = () => { pj = Math.min(4, Math.max(0, pj + +b.dataset.d)); $("pj").textContent = pj; render(); });
-document.getElementById("build").addEventListener("change", render);
-
+const label = el => el.closest("label").querySelector("b, span").textContent.trim();
+const optText = sel => sel.options[sel.selectedIndex].textContent.trim();
 function render() {
   const base = document.querySelector("[name=base]:checked");
-  const baseP = +base.dataset.p;
-  const name = base.closest("label").querySelector("b").textContent;
-  const lines = [[name.toUpperCase(), baseP]];
-  if (pj) lines.push([`+ ${pj} persona${pj > 1 ? "s" : ""} extra`, Math.round(baseP * .5) * pj]);
-  if (+$("fondo").value) lines.push(["+ full pedrería", +$("fondo").value]);
-  let sub = lines.reduce((s, l) => s + l[1], 0);
-  if ($("urg").checked) { const u = Math.round(sub * .3); lines.push(["+ urgente (30 %)", u]); sub += u; }
-  if ($("com").checked) lines.push(["+ uso comercial", "a cotizar"]);
-  $("lines").innerHTML = lines.map(([t, p]) => `<div class="line"><span>${t}</span><span>${typeof p === "number" ? "S/ " + p : p}</span></div>`).join("");
-  $("total").textContent = `S/ ${sub}${$("com").checked ? " +" : ""}`;
-  // El ticket viaja al cupón de contacto
-  const resumen = lines.map(([t, p]) => `${t}: ${typeof p === "number" ? "S/ " + p : p}`).join(" · ") + ` · TOTAL S/ ${sub}`;
-  $("ask").href = `contacto.html?tipo=${base.value}&ticket=${encodeURIComponent(resumen)}`;
+  const fmts = [...document.querySelectorAll("[name=fmt]:checked")].map(label);
+  const lines = [
+    [t("PROJECT", "PROYECTO"), label(base)],
+    [t("FORMATS", "FORMATOS"), fmts.join(", ") || "—"],
+    [t("USAGE", "USO"), optText($("uso"))],
+    [t("TIMELINE", "PLAZO"), optText($("plazo"))],
+    [t("BUDGET", "PRESUPUESTO"), optText($("budget"))],
+  ];
+  $("lines").innerHTML = lines.map(([k, v]) => `<div class="line"><span>${k}</span><span>${v}</span></div>`).join("");
+  const brief = lines.map(([k, v]) => `${k}: ${v}`).join(" · ");
+  $("ask").href = `contacto.html?tipo=${base.value}&budget=${encodeURIComponent($("budget").value)}&ticket=${encodeURIComponent(brief)}`;
 }
+$("build").addEventListener("change", render);
+addEventListener("langchange", render);
 render();
 </script>
 </body>

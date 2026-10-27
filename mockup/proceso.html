@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detrás — Glenn</title>
+<title>Process — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
@@ -33,36 +33,36 @@ input[type=range]::-moz-range-thumb { width: 30px; height: 30px; background: var
 </style>
 </head>
 <body>
-<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<div class="mockbar">MOCKUP · Zine Nº 01 · dotted boxes are placeholders for her artwork</div>
 <header class="masthead">
-  <a href="mixed-media.html">obras</a>
-  <a class="badge" href="index.html" aria-label="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
-  <a href="encargos.html">encargos</a>
+  <a href="mixed-media.html" data-es="obras">work</a>
+  <a class="badge" href="index.html" aria-label="Glenn, back to the cover" data-es-aria="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
+  <a href="encargos.html" data-es="servicios">services</a>
 </header>
 <main class="zine" id="zine">
   <article style="--sheet-tilt:-.4deg" class="page" aria-labelledby="t">
     <div class="head">
-      <h1 class="riso-title plain" id="t" data-t="Detrás">Detrás</h1>
-      <span class="hand">todo va pegado a mano, nada es filtro</span>
+      <h1 class="riso-title plain" id="t" data-t="Process" data-es="Proceso">Process</h1>
+      <span class="hand" data-es="todo se hace a mano primero">everything is made by hand first</span>
     </div>
     <div class="layers">
       <div class="stage">
         <span class="tape" aria-hidden="true"></span>
-        <div class="asset on" data-asset="paso 1 · la foto impresa"></div>
-        <div class="asset" data-asset="paso 2 · pintura encima"></div>
-        <div class="asset" data-asset="paso 3 · glitter y pedrería"></div>
-        <div class="asset" data-asset="paso 4 · stickers y detalle"></div>
+        <div class="asset on" data-asset="proceso-1.jpg" data-src="assets/obras/proceso-1.jpg"></div>
+        <div class="asset" data-asset="proceso-2.jpg" data-src="assets/obras/proceso-2.jpg"></div>
+        <div class="asset" data-asset="proceso-3.jpg" data-src="assets/obras/proceso-3.jpg"></div>
+        <div class="asset" data-asset="proceso-4.jpg" data-src="assets/obras/proceso-4.jpg"></div>
       </div>
       <div>
         <p class="step-n" id="sn" aria-hidden="true">01</p>
         <div role="status" aria-live="polite">
-          <h2 class="step-t" id="st">La foto</h2>
-          <p id="sd" style="margin:0">Elijo la foto (de un concierto, de tu artista o tuya) y la imprimo grande.</p>
+          <h2 class="step-t" id="st"></h2>
+          <p id="sd" style="margin:0"></p>
         </div>
         <div class="slider">
-          <label for="range" class="hand">desliza → capa por capa</label>
-          <input id="range" type="range" min="0" max="3" step="1" value="0" aria-valuetext="Paso 1 de 4: La foto">
-          <div class="ticks" role="group" aria-label="Ir a un paso">
+          <label for="range" class="hand" data-es="desliza para ver cada etapa →">slide through each stage →</label>
+          <input id="range" type="range" min="0" max="3" step="1" value="0">
+          <div class="ticks" role="group" aria-label="Go to a stage" data-es-aria="Ir a una etapa">
             <button data-i="0" aria-pressed="true">01</button><button data-i="1" aria-pressed="false">02</button><button data-i="2" aria-pressed="false">03</button><button data-i="3" aria-pressed="false">04</button>
           </div>
         </div>
@@ -71,40 +71,46 @@ input[type=range]::-moz-range-thumb { width: 30px; height: 30px; background: var
 
     <div class="below">
       <div>
-        <h2 class="step-t">Timelapse</h2>
-        <div class="asset video" data-asset="reel de proceso (de su IG)"></div>
+        <h2 class="step-t" data-es="En video">On video</h2>
+        <div class="asset video" data-asset="proceso.jpg (frame from a process reel)" data-src="assets/obras/proceso.jpg"></div>
       </div>
       <div>
-        <h2 class="step-t">Materiales</h2>
-        <div class="materials"><span class="dymo">acrílico</span><span class="dymo">óleo pastel</span><span class="dymo red">glitter</span><span class="dymo">pedrería</span><span class="dymo">lentejuelas</span><span class="dymo red">stickers</span><span class="dymo">fotos impresas</span></div>
-        
+        <h2 class="step-t" data-es="Materiales y herramientas">Materials &amp; tools</h2>
+        <div class="materials"><span class="dymo" data-es="óleo">oil</span><span class="dymo" data-es="acrílico">acrylic</span><span class="dymo red">glitter</span><span class="dymo" data-es="pedrería">rhinestones</span><span class="dymo" data-es="lentejuelas">sequins</span><span class="dymo">stickers</span><span class="dymo red">photoshop</span><span class="dymo red">after effects</span><span class="dymo">stop motion</span></div>
+        <p style="margin-top:20px" data-es="Entregables: animaciones en video (vertical y horizontal), piezas físicas originales y archivos en alta para impresión.">Deliverables: video animations (vertical &amp; horizontal), original physical pieces and high-res files for print.</p>
       </div>
     </div>
     <span class="folio">05</span>
   </article>
 </main>
+<script src="assets/i18n.js"></script>
 <script src="assets/zine.js"></script>
 <script>
+// Etapas reales de su método (según cómo describe su trabajo con Hera Roja Films)
 const STEPS = [
-  ["La foto", "Elijo la foto (de un concierto, de tu artista o tuya) y la imprimo grande."],
-  ["Pintura", "Acrílico y óleo pastel encima: corazones, llamas, colores que no estaban."],
-  ["Brillo", "Glitter, pedrería y lentejuelas pegadas una por una."],
-  ["Detalle", "Stickers, estrellas y el último toque. Foto, reel y listo."],
+  ["Paint by hand", "Pintar a mano", "Every element starts physical: printed photos, oil, acrylic, glitter and rhinestones.", "Todo empieza físico: fotos impresas, óleo, acrílico, glitter y pedrería."],
+  ["Shoot & scan", "Fotografiar y escanear", "Each stage is photographed or scanned so the texture of the material survives.", "Cada etapa se fotografía o escanea para conservar la textura del material."],
+  ["Clean up", "Limpiar", "Pieces are cleaned and organised in Photoshop, ready to move.", "Las piezas se limpian y ordenan en Photoshop, listas para moverse."],
+  ["Animate", "Animar", "Animated in After Effects or frame by frame, delivered in every format the campaign needs.", "Se animan en After Effects o cuadro a cuadro y se entregan en los formatos que pida la campaña."],
 ];
 const range = document.getElementById("range");
 const layers = document.querySelectorAll(".stage .asset");
 const ticks = document.querySelectorAll(".ticks button");
 const set = i => {
+  i = +i;
+  const [en, es, den, des] = STEPS[i];
   range.value = i;
-  layers.forEach((l, j) => l.classList.toggle("on", j === +i));
-  ticks.forEach(t => t.setAttribute("aria-pressed", t.dataset.i == i));
-  document.getElementById("sn").textContent = "0" + (+i + 1);
-  document.getElementById("st").textContent = STEPS[i][0];
-  document.getElementById("sd").textContent = STEPS[i][1];
-  range.setAttribute("aria-valuetext", `Paso ${+i + 1} de 4: ${STEPS[i][0]}`);
+  layers.forEach((l, j) => l.classList.toggle("on", j === i));
+  ticks.forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i));
+  document.getElementById("sn").textContent = "0" + (i + 1);
+  document.getElementById("st").textContent = t(en, es);
+  document.getElementById("sd").textContent = t(den, des);
+  range.setAttribute("aria-valuetext", t(`Stage ${i + 1} of 4: ${en}`, `Etapa ${i + 1} de 4: ${es}`));
 };
 range.oninput = () => set(range.value);
-ticks.forEach(t => t.onclick = () => set(t.dataset.i));
+ticks.forEach(b => b.onclick = () => set(b.dataset.i));
+addEventListener("langchange", () => set(range.value));
+set(0);
 </script>
 </body>
 </html>

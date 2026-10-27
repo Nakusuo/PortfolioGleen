@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,41 +28,41 @@
 @media (max-width: 760px) {
   .scatter { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 16px; }
   .piece { position: relative; inset: auto; width: auto; height: auto; aspect-ratio: 3/4; }
-  .tools .hand { display: none; }
+  .tools .drag-hint { display: none; }
 }
 </style>
 </head>
 <body>
-<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<div class="mockbar">MOCKUP · Zine Nº 01 · dotted boxes are placeholders for her artwork</div>
 <header class="masthead">
-  <a href="mixed-media.html">obras</a>
-  <a class="badge" href="index.html" aria-label="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
-  <a href="encargos.html">encargos</a>
+  <a href="mixed-media.html" data-es="obras">work</a>
+  <a class="badge" href="index.html" aria-label="Glenn, back to the cover" data-es-aria="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
+  <a href="encargos.html" data-es="servicios">services</a>
 </header>
 <main class="zine" id="zine">
   <article style="--sheet-tilt:.45deg" class="page" aria-labelledby="t">
     <div class="head">
       <h1 class="riso-title" id="t" data-t="Mixed media">Mixed media</h1>
       <div class="tools">
-        <span class="hand">muévelas, ábrelas</span>
-        <button class="dymo" data-reset>ordenar mesa</button>
+        <span class="drag-hint" aria-hidden="true" data-es="✥ arrastra · clic para abrir">✥ drag · click to open</span>
+        <button class="dymo" data-reset data-es="ordenar">tidy up</button>
       </div>
     </div>
-    <p class="lead">fotos impresas y luego pintadas encima: acrílico, óleo pastel, glitter, pedrería, lentejuelas, stickers. de la más nueva a la más vieja.</p>
+    <p class="lead" data-es="Fotografías impresas e intervenidas a mano con acrílico, óleo pastel, glitter, pedrería y stickers, y animaciones hechas cuadro a cuadro con ese material.">Printed photographs worked over by hand with acrylic, oil pastel, glitter, rhinestones and stickers — and animations built frame by frame from that same material.</p>
     <div class="scatter">
-      <span class="margin-note red hide-sm" style="left:24%;top:-38px;--r:-6deg" aria-hidden="true">mi favorita</span>
       <svg class="doodle draw hide-sm" style="--ar:1.37;left:21%;top:-14px;--w:70px;--r:100deg" aria-hidden="true"><use href="assets/doodles.svg#arrow"/></svg>
-      <a class="piece p1" href="#" data-drag data-obra="¿Quién vive dentro de mí?|Foto + collage + stickers|A3|2026|Original disponible"><span class="tape" aria-hidden="true"></span><div class="asset" data-asset="obra 1"></div><span class="dymo">¿quién vive dentro de mí?</span></a>
-      <a class="piece p2" href="#" data-drag data-obra="Corazón de concierto|Foto + acrílico + glitter|A4|2026|Vendida"><div class="gems" style="height:100%"><div class="asset" data-asset="obra 2" style="height:100%"></div></div><span class="dymo red">corazón de concierto</span></a>
-      <a class="piece p3" href="#" data-drag data-obra="Brillo|Foto + pedrería + lentejuelas|A4|2025|Original disponible"><span class="tape pink" aria-hidden="true"></span><div class="asset" data-asset="obra 3"></div><span class="dymo">brillo</span></a>
-      <a class="piece p4" href="#" data-drag data-obra="Estrellas|Foto + stickers + óleo pastel|A4|2025|Vendida"><div class="asset" data-asset="obra 4"></div><span class="dymo">estrellas</span></a>
-      <a class="piece p5" href="#" data-drag data-obra="Autorretrato|Foto + acrílico|A4|2025|Original disponible"><div class="asset" data-asset="obra 5"></div><span class="dymo red">autorretrato</span></a>
-      <a class="piece p6" href="#" data-drag data-obra="Fotocopias|Collage + marcador|A4|2024|Vendida"><div class="asset" data-asset="obra 6"></div><span class="dymo">fotocopias</span></a>
+      <a class="piece p1" href="#" data-drag data-obra="Who lives inside me?|Photo, collage, stickers|A3|2026|Personal work" data-obra-es="¿Quién vive dentro de mí?|Foto, collage, stickers|A3|2026|Obra personal"><span class="tape" aria-hidden="true"></span><div class="asset" data-asset="quien-vive.jpg" data-src="assets/obras/quien-vive.jpg"></div><span class="dymo" data-es="¿quién vive dentro de mí?">who lives inside me?</span></a>
+      <a class="piece p2" href="#" data-drag data-obra="Ella — animation tests|Oil, Photoshop, After Effects|Animation|2026|Client project · Hera Roja Films" data-obra-es="Ella — pruebas de animación|Óleo, Photoshop, After Effects|Animación|2026|Proyecto para Hera Roja Films"><div class="gems" style="height:100%"><div class="asset" data-asset="hera-ella.jpg" data-src="assets/obras/hera-ella.jpg" style="height:100%"></div></div><span class="dymo red">ella · hera roja films</span></a>
+      <a class="piece p3" href="#" data-drag data-obra="Self-portrait|Photo, acrylic|A4|2026|Personal work" data-obra-es="Autorretrato|Foto, acrílico|A4|2026|Obra personal"><span class="tape pink" aria-hidden="true"></span><div class="asset" data-asset="autorretrato.jpg" data-src="assets/obras/autorretrato.jpg"></div><span class="dymo" data-es="autorretrato">self-portrait</span></a>
+      <a class="piece p4" href="#" data-drag data-obra="Piece 04|Photo, stickers, oil pastel|A4|2025|Personal work" data-obra-es="Obra 04|Foto, stickers, óleo pastel|A4|2025|Obra personal"><div class="asset" data-asset="mixed-04.jpg" data-src="assets/obras/mixed-04.jpg"></div><span class="dymo" data-es="obra 04">piece 04</span></a>
+      <a class="piece p5" href="#" data-drag data-obra="Piece 05|Photo, acrylic, rhinestones|A4|2025|Personal work" data-obra-es="Obra 05|Foto, acrílico, pedrería|A4|2025|Obra personal"><div class="asset" data-asset="mixed-05.jpg" data-src="assets/obras/mixed-05.jpg"></div><span class="dymo red" data-es="obra 05">piece 05</span></a>
+      <a class="piece p6" href="#" data-drag data-obra="Piece 06|Collage, marker|A4|2024|Personal work" data-obra-es="Obra 06|Collage, marcador|A4|2024|Obra personal"><div class="asset" data-asset="mixed-06.jpg" data-src="assets/obras/mixed-06.jpg"></div><span class="dymo" data-es="obra 06">piece 06</span></a>
     </div>
     <span class="star pink" style="bottom:4%;left:3%;--s:40px;--r:-14deg;--d:1s" aria-hidden="true"></span>
     <span class="folio">02</span>
   </article>
 </main>
+<script src="assets/i18n.js"></script>
 <script src="assets/zine.js"></script>
 </body>
 </html>
