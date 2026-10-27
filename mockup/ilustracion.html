@@ -5,16 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ilustración — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
 <script src="assets/turn.js"></script>
 <link rel="expect" href="#zine" blocking="render">
 <style>
 .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
 .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.frame { background: #fff; border: 3px solid var(--ink); padding: 10px 10px 14px; text-decoration: none; display: block;
+.frame { background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.15), 0 14px 22px -12px rgba(0,0,0,.4); padding: 10px 10px 14px; rotate: var(--r, 0deg); text-decoration: none; display: block;
   transition: translate .25s, box-shadow .25s, opacity .3s, scale .3s var(--pop); }
-.frame:hover, .frame:focus-visible { translate: -4px -4px; box-shadow: 8px 8px 0 var(--ink); }
+.frame:hover, .frame:focus-visible { rotate: 0deg; translate: 0 -4px; }
+.grid3 .frame:first-child { grid-column: span 2; grid-row: span 2; }
+.grid3 .frame:first-child .asset { aspect-ratio: auto; height: calc(100% - 60px); min-height: 280px; }
+.side-note { position: absolute; left: 10px; top: 50%; translate: 0 -50%; writing-mode: vertical-rl; rotate: 180deg; font: 700 .8rem var(--type); letter-spacing: .3em; text-transform: uppercase; }
+@media (max-width: 760px) { .side-note { display: none; } .grid3 .frame:first-child { grid-column: span 2; grid-row: auto; } }
 .frame .asset { aspect-ratio: 1; border-width: 0; }
 /* Ficha limpia (ref. Keerthi): título grande y técnica en mayúsculas a máquina */
 .frame p { margin: 12px 2px 0; display: flex; flex-direction: column; gap: 2px; font: 400 clamp(1.05rem, 2vw, 1.35rem)/1.15 var(--block); text-transform: uppercase; }
@@ -33,10 +37,10 @@
   <a href="encargos.html">encargos</a>
 </header>
 <main class="zine" id="zine">
-  <article class="page green" aria-labelledby="t">
+  <article style="--sheet-tilt:-.6deg" class="page green" aria-labelledby="t">
     <div class="head">
-      <h1 class="riso-title" id="t" data-t="Ilustración">Ilustración</h1>
-      <span class="stamp drop" style="background:#fff">pintura + digital</span>
+      <h1 class="riso-title plain" id="t" data-t="Ilustración">Ilustración</h1>
+      <span class="hand">pinturas, y a veces en la tablet</span>
     </div>
     <div class="filters" role="group" aria-label="Filtrar por técnica">
       <button class="dymo" data-f="all" aria-pressed="true">todo</button>
@@ -45,13 +49,14 @@
     </div>
     <p class="sr-only" role="status" id="count"></p>
     <div class="grid3">
-      <a class="frame" href="#" data-k="tradicional" data-obra="Unicornio|Acrílico + óleo pastel|A3|2026|Print disponible"><div class="asset" data-asset="ilustración 1 (ej. unicornio)"></div><p>Unicornio <small>pintura</small></p></a>
-      <a class="frame" href="#" data-k="tradicional" data-obra="Jardín rosa|Gouache|A4|2026|Original disponible"><div class="asset" data-asset="ilustración 2"></div><p>Jardín rosa <small>gouache</small></p></a>
-      <a class="frame" href="#" data-k="digital" data-obra="Portada|Procreate|A4 300 dpi|2025|Encargo"><div class="asset" data-asset="ilustración 3"></div><p>Portada <small>digital</small></p></a>
-      <a class="frame" href="#" data-k="tradicional" data-obra="Personaje|Acuarela|A5|2025|Original disponible"><div class="asset" data-asset="ilustración 4"></div><p>Personaje <small>acuarela</small></p></a>
-      <a class="frame" href="#" data-k="digital" data-obra="Póster|Procreate|A3 300 dpi|2025|Print disponible"><div class="asset" data-asset="ilustración 5"></div><p>Póster <small>digital</small></p></a>
-      <a class="frame" href="#" data-k="tradicional" data-obra="Estudio|Tinta|A5|2024|Sketchbook"><div class="asset" data-asset="ilustración 6"></div><p>Estudio <small>tinta</small></p></a>
+      <a class="frame" style="--r:-1.4deg" href="#" data-k="tradicional" data-obra="Unicornio|Acrílico + óleo pastel|A3|2026|Print disponible"><div class="asset" data-asset="ilustración 1 (ej. unicornio)"></div><p>Unicornio <small>pintura</small></p></a>
+      <a class="frame" style="--r:2.2deg" href="#" data-k="tradicional" data-obra="Jardín rosa|Gouache|A4|2026|Original disponible"><div class="asset" data-asset="ilustración 2"></div><p>Jardín rosa <small>gouache</small></p></a>
+      <a class="frame" style="--r:-.6deg" href="#" data-k="digital" data-obra="Portada|Procreate|A4 300 dpi|2025|Encargo"><div class="asset" data-asset="ilustración 3"></div><p>Portada <small>digital</small></p></a>
+      <a class="frame" style="--r:1.1deg" href="#" data-k="tradicional" data-obra="Personaje|Acuarela|A5|2025|Original disponible"><div class="asset" data-asset="ilustración 4"></div><p>Personaje <small>acuarela</small></p></a>
+      <a class="frame" style="--r:-2.5deg" href="#" data-k="digital" data-obra="Póster|Procreate|A3 300 dpi|2025|Print disponible"><div class="asset" data-asset="ilustración 5"></div><p>Póster <small>digital</small></p></a>
+      <a class="frame" style="--r:.8deg" href="#" data-k="tradicional" data-obra="Estudio|Tinta|A5|2024|Sketchbook"><div class="asset" data-asset="ilustración 6"></div><p>Estudio <small>tinta</small></p></a>
     </div>
+    <span class="side-note" aria-hidden="true">pintura · digital · 2024—2026</span>
     <span class="folio">03</span>
   </article>
 </main>
