@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glenn — Zine Nº 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bowlby+One&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&family=Special+Elite&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+/* Portada a pantalla completa: en escritorio todo cabe sin desplazar;
+   en celular, título + video + botón llenan la primera pantalla. */
+.cover-body .zine { padding-top: 12px; padding-bottom: 12px; }
+.cover-body .pager { display: none; }   /* la portada ya tiene "Abrir el zine" y las pestañas */
+.cover {
+  --gap: clamp(8px, 2.2vh, 22px);
+  height: calc(100svh - var(--bar, 0px) - 24px); min-height: 0; padding: clamp(18px, 3.5vh, 40px) clamp(20px, 4vw, 48px);
+  display: grid; column-gap: clamp(24px, 4vw, 48px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  grid-template-areas: "issue reel" "title reel" "sub reel" "toc reel" "cta reel";
+}
+.issue { grid-area: issue; display: flex; justify-content: space-between; gap: 12px; border-bottom: 3px solid var(--ink); padding-bottom: 8px; margin-bottom: var(--gap); font-weight: 700; font-size: .9rem; }
+
+/* Nombre en letras recortadas: cada letra se mueve al pasar el ratón */
+.ransom { grid-area: title; display: flex; gap: 6px; margin: 0 0 var(--gap); --fs: clamp(2.2rem, min(6vw, 10vh), 5.4rem); }
+.ransom span { display: inline-grid; place-items: center; font-size: var(--fs); line-height: 1; padding: .06em .18em .12em;
+  box-shadow: 3px 4px 0 rgba(0,0,0,.25); transition: rotate .3s var(--pop), translate .3s var(--pop); cursor: default; }
+.ransom span:hover { rotate: calc(var(--rot) * -1.6); translate: 0 -8px; }
+.ransom span:nth-child(1) { --rot: -6deg; rotate: var(--rot); font-family: var(--block); background: var(--ink); color: #fff; }
+.ransom span:nth-child(2) { --rot: 4deg; rotate: var(--rot); font-family: "Bowlby One"; }
+.ransom span:nth-child(3) { --rot: -2deg; rotate: var(--rot); font-family: "Special Elite"; background: #fff; border: 3px solid var(--ink); font-weight: 700; }
+.ransom span:nth-child(4) { --rot: 7deg; rotate: var(--rot); font-family: var(--stamp); background: var(--riso-green); font-size: calc(var(--fs) * .82); }
+.ransom span:nth-child(5) { --rot: -4deg; rotate: var(--rot); font-family: var(--hand); background: #fff; color: var(--riso-red); font-size: calc(var(--fs) * .74); border: 3px solid var(--riso-red); }
+.ransom span.glitter { color: #fff; text-shadow: 2px 2px 0 var(--ink); }
+.sub { grid-area: sub; font-size: clamp(.95rem, 2.1vh, 1.15rem); line-height: 1.45; max-width: 52ch; margin: 0 0 var(--gap); }
+
+/* Índice en dos columnas con "asomo" de cada sección */
+.toc-wrap { grid-area: toc; position: relative; align-self: start; }
+.toc { background: #fff; border: 2px solid var(--ink); padding: clamp(10px, 2vh, 18px) 20px; rotate: -1.5deg; position: relative; max-width: 600px; }
+.toc h2 { font: 400 .95rem var(--stamp); margin: 0 0 4px; }
+.toc ol { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 28px; }
+.toc li { break-inside: avoid; }
+.toc a { display: flex; align-items: baseline; gap: 8px; min-height: clamp(30px, 4.6vh, 40px); padding: 4px 0; text-decoration: none; font-weight: 700; transition: padding .2s; }
+.toc a::after { content: ""; order: 2; flex: 1; border-bottom: 2px dotted var(--ink); }
+.toc a span { order: 3; font-family: var(--stamp); font-size: .75rem; }
+.toc a:hover, .toc a:focus-visible { color: var(--riso-red); padding-left: 8px; }
+.toc .tape { top: -14px; right: 20px; rotate: 8deg; }
+.peek { position: absolute; right: -40px; top: -20px; width: clamp(110px, 18vh, 170px); aspect-ratio: 1; z-index: 6; pointer-events: none;
+  opacity: 0; scale: .6; rotate: 8deg; transition: opacity .2s, scale .3s var(--pop); box-shadow: 6px 6px 0 var(--ink); }
+.peek.on { opacity: 1; scale: 1; }
+
+.desk-hint { grid-area: cta; display: flex; gap: 14px; align-items: center; margin-top: var(--gap); }
+.desk-hint .hand { font-size: .85rem; }
+.desk-hint .btn, .desk-hint .dymo { flex-shrink: 0; }
+
+/* Video: ocupa toda la altura disponible y deduce el ancho (9:16) */
+.cutout { grid-area: reel; position: relative; height: 100%; min-height: 0; aspect-ratio: 9 / 16; justify-self: end;
+  rotate: 2deg; box-shadow: 10px 12px 0 var(--ink); background: #fff; border: 3px solid var(--ink); padding: 8px; }
+.cutout .reel, .cutout .reel-missing { width: 100%; height: 100%; }
+.cutout .reel { display: block; object-fit: cover; background: #111; }
+.cutout .reel-missing[hidden], .cutout .reel[hidden] { display: none; }
+.cutout .play { position: absolute; left: 16px; bottom: 16px; z-index: 4; width: 48px; height: 48px; border-radius: 50%;
+  border: 2px solid var(--ink); background: var(--riso-yellow); font-size: 1rem; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); }
+.cutout .play[hidden] { display: none; }
+.cutout .tape { top: -14px; left: 30%; rotate: -6deg; }
+.cutout .stamp { position: absolute; left: -36px; bottom: 18%; background: #fff; z-index: 3; font-size: .85rem; mix-blend-mode: normal; }
+
+/* Stickers sueltos sobre la portada */
+.loose { position: absolute; z-index: 8; width: clamp(56px, 11vh, 90px); aspect-ratio: 1; border-radius: 50%; cursor: grab; box-shadow: 0 0 0 3px var(--ink), 4px 6px 0 3px rgba(0,0,0,.2); rotate: var(--r); }
+.loose:active { cursor: grabbing; }
+.l1 { top: 8%; right: 34%; --r: -10deg; } .l2 { bottom: 6%; right: 3%; --r: 12deg; } .l3 { top: 3%; right: 3%; --r: 6deg; border-radius: 30% 70% 60% 40% / 50% 40% 60% 50%; }
+
+/* Pantallas muy bajas: se permite desplazar antes que cortar contenido */
+@media (min-width: 861px) and (max-height: 560px) { .cover { height: auto; } .cutout { height: 480px; } }
+
+/* ---------- Celular y tablet vertical ---------- */
+@media (max-width: 860px) {
+  .cover-body .zine { padding: 8px 8px 84px; }
+  .cover {
+    height: auto; padding: 16px 16px 28px; --gap: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "issue" "title" "reel" "cta" "sub" "toc";
+  }
+  .issue { font-size: .78rem; }
+  .issue .opt { display: none; }
+  .ransom { justify-content: center; --fs: min(13vw, 4.2rem); gap: 4px; }
+  /* Primera pantalla: el video ocupa lo que queda entre el título y el botón */
+  .cutout { height: auto; width: min(100%, calc((100svh - var(--bar, 0px) - 300px) * 9 / 16)); min-width: 200px; justify-self: center; rotate: 1.5deg; margin-bottom: 8px; }
+  .cutout .stamp { left: auto; right: -6px; bottom: 12%; font-size: .75rem; }
+  .desk-hint { justify-content: center; margin: 16px 0 20px; }
+  .desk-hint .btn { width: 100%; justify-content: center; }
+  .sub { text-align: center; margin-inline: auto; }
+  .toc ol { columns: 1; }
+  .toc a { min-height: 44px; }
+  .peek, .loose, .desk-hint .hand, .desk-hint [data-reset], .star.hide-sm { display: none; }
+}
+</style>
+</head>
+<body class="cover-body">
+<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<main class="zine">
+  <article class="page cover" aria-labelledby="t">
+      <div class="issue"><span>ZINE Nº 01</span><span>@fresaperdidaa 🍓</span><span class="opt">open agenda ♡</span></div>
+      <h1 class="ransom" id="t" aria-label="Glenn"><span aria-hidden="true">G</span><span aria-hidden="true" class="glitter">L</span><span aria-hidden="true">E</span><span aria-hidden="true">N</span><span aria-hidden="true">N</span></h1>
+      <p class="sub">Artista visual ☆ fangirl ☆ mixed media. Pinto encima de tus fotos favoritas con acrílico, glitter, pedrería y stickers. <span class="hand">me gusta darle color a mi mundo</span></p>
+
+      <div class="toc-wrap">
+        <nav class="toc" aria-labelledby="toc-t">
+          <span class="tape pink" aria-hidden="true"></span>
+          <h2 id="toc-t">Contenido</h2>
+          <ol>
+            <li><a href="mixed-media.html" data-peek="foto intervenida">Mixed media <span>p.02</span></a></li>
+            <li><a href="ilustracion.html" data-peek="pintura / ilustración">Ilustración <span>p.03</span></a></li>
+            <li><a href="fanart.html" data-peek="arte de concierto">Fangirl + noticed! <span>p.04</span></a></li>
+            <li><a href="proceso.html" data-peek="reel de proceso">Detrás <span>p.05</span></a></li>
+            <li><a href="encargos.html" data-peek="ejemplo de encargo">Encargos ★ <span>p.06</span></a></li>
+            <li><a href="sobre-mi.html" data-peek="su foto">Sobre mí <span>p.07</span></a></li>
+            <li><a href="contacto.html" data-peek="sobre / carta">Contacto <span>p.08</span></a></li>
+          </ol>
+        </nav>
+        <div class="asset peek" id="peek" aria-hidden="true"></div>
+      </div>
+
+      <div class="desk-hint">
+        <a class="btn" href="mixed-media.html">Abrir el zine →</a>
+        <span class="hand">psst… los stickers se mueven</span>
+        <button class="dymo" data-reset>ordenar</button>
+      </div>
+
+    <div class="cutout">
+      <span class="tape" aria-hidden="true"></span>
+      <video class="reel" id="reel" src="assets/portada.mp4" autoplay muted loop playsinline preload="auto" aria-label="Video de Glenn intervenido con glitter y estrellas"></video>
+      <div class="asset reel-missing" id="reel-missing" data-asset="falta assets/portada.mp4 (el video del reel)" hidden></div>
+      <button class="play" id="reel-btn" aria-label="Pausar video" hidden>❚❚</button>
+      <span class="stamp drop">open<br>agenda!</span>
+      <span class="star" style="bottom:-18px;right:-18px;--s:44px;--r:20deg;--d:1.6s" aria-hidden="true"></span>
+    </div>
+
+    <div class="asset loose l1" data-drag data-asset="sticker" aria-hidden="true"></div>
+    <div class="asset loose l2" data-drag data-asset="sticker" aria-hidden="true"></div>
+    <div class="asset loose l3" data-drag data-asset="doodle" aria-hidden="true"></div>
+    <span class="star hide-sm" style="top:4%;right:calc(9vh * 3);--s:44px;--r:-12deg" aria-hidden="true"></span>
+    <span class="star pink hide-sm" style="top:-4px;left:-4px;--s:34px;--r:10deg;--d:.8s" aria-hidden="true"></span>
+    <span class="folio">01</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+// Video de portada: si falta el archivo, se ve el hueco; botón de pausa (WCAG 2.2.2)
+const reel = document.getElementById("reel"), reelBtn = document.getElementById("reel-btn");
+const noReel = () => { reel.hidden = true; document.getElementById("reel-missing").hidden = false; };
+reel.addEventListener("error", noReel);
+if (reel.error) noReel();
+reel.addEventListener("loadeddata", () => { reelBtn.hidden = false; });
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) reel.removeAttribute("autoplay"), reel.pause();
+const syncBtn = () => { reelBtn.textContent = reel.paused ? "▶" : "❚❚"; reelBtn.setAttribute("aria-label", reel.paused ? "Reproducir video" : "Pausar video"); };
+reel.addEventListener("play", syncBtn); reel.addEventListener("pause", syncBtn);
+reelBtn.onclick = () => reel.paused ? reel.play() : reel.pause();
+
+// Al pasar por el índice, se asoma una imagen de esa sección junto a la línea
+const peek = document.getElementById("peek");
+document.querySelectorAll("[data-peek]").forEach(a => {
+  const on = () => {
+    peek.dataset.asset = a.dataset.peek;
+    peek.classList.add("on");
+  };
+  a.addEventListener("mouseenter", on);
+  a.addEventListener("focus", on);
+  a.addEventListener("mouseleave", () => peek.classList.remove("on"));
+  a.addEventListener("blur", () => peek.classList.remove("on"));
+});
+</script>
+</body>
+</html>

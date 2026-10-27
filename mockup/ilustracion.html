@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ilustración — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+.filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.frame { background: #fff; border: 3px solid var(--ink); padding: 10px 10px 14px; text-decoration: none; display: block;
+  transition: translate .25s, box-shadow .25s, opacity .3s, scale .3s var(--pop); }
+.frame:hover, .frame:focus-visible { translate: -4px -4px; box-shadow: 8px 8px 0 var(--ink); }
+.frame .asset { aspect-ratio: 1; border-width: 0; }
+.frame p { margin: 10px 0 0; font-weight: 700; display: flex; justify-content: space-between; gap: 8px; }
+.frame p small { font: 400 .65rem var(--stamp); background: var(--ink); color: #fff; padding: 4px 6px; align-self: center; }
+.frame[hidden] { display: none; }
+.frame.pop { animation: pop .35s var(--pop); }
+@keyframes pop { from { scale: .85; opacity: 0; } }
+@media (max-width: 760px) { .grid3 { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<main class="zine">
+  <article class="page green" aria-labelledby="t">
+    <div class="head">
+      <h1 class="riso-title" id="t" data-t="Ilustración">Ilustración</h1>
+      <span class="stamp drop" style="background:#fff">pintura + digital</span>
+    </div>
+    <div class="filters" role="group" aria-label="Filtrar por técnica">
+      <button class="dymo" data-f="all" aria-pressed="true">todo</button>
+      <button class="dymo" data-f="digital" aria-pressed="false">digital</button>
+      <button class="dymo" data-f="tradicional" aria-pressed="false">pintura</button>
+    </div>
+    <p class="sr-only" role="status" id="count"></p>
+    <div class="grid3">
+      <a class="frame" href="#" data-k="tradicional" data-obra="Unicornio|Acrílico + óleo pastel|A3|2026|Print disponible"><div class="asset" data-asset="ilustración 1 (ej. unicornio)"></div><p>Unicornio <small>pintura</small></p></a>
+      <a class="frame" href="#" data-k="tradicional" data-obra="Jardín rosa|Gouache|A4|2026|Original disponible"><div class="asset" data-asset="ilustración 2"></div><p>Jardín rosa <small>gouache</small></p></a>
+      <a class="frame" href="#" data-k="digital" data-obra="Portada|Procreate|A4 300 dpi|2025|Encargo"><div class="asset" data-asset="ilustración 3"></div><p>Portada <small>digital</small></p></a>
+      <a class="frame" href="#" data-k="tradicional" data-obra="Personaje|Acuarela|A5|2025|Original disponible"><div class="asset" data-asset="ilustración 4"></div><p>Personaje <small>acuarela</small></p></a>
+      <a class="frame" href="#" data-k="digital" data-obra="Póster|Procreate|A3 300 dpi|2025|Print disponible"><div class="asset" data-asset="ilustración 5"></div><p>Póster <small>digital</small></p></a>
+      <a class="frame" href="#" data-k="tradicional" data-obra="Estudio|Tinta|A5|2024|Sketchbook"><div class="asset" data-asset="ilustración 6"></div><p>Estudio <small>tinta</small></p></a>
+    </div>
+    <span class="folio">03</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+const frames = document.querySelectorAll(".frame");
+document.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
+  document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  let n = 0;
+  frames.forEach(f => {
+    const show = b.dataset.f === "all" || f.dataset.k === b.dataset.f;
+    f.hidden = !show;
+    if (show) { n++; f.classList.remove("pop"); void f.offsetWidth; f.classList.add("pop"); }
+  });
+  document.getElementById("count").textContent = `${n} ilustraciones`;
+});
+</script>
+</body>
+</html>

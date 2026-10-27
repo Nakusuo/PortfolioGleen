@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre mí — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+.about { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: start; }
+/* Polaroid que se voltea: detrás hay un dato curioso */
+.polaroid { perspective: 900px; cursor: pointer; background: none; border: 0; padding: 0; width: 100%; text-align: center; }
+.polaroid .flip { position: relative; display: grid; transition: transform .6s var(--pop); transform-style: preserve-3d; rotate: -4deg; }
+.polaroid[aria-pressed="true"] .flip { transform: rotateY(180deg); }
+.polaroid .side { grid-area: 1 / 1; background: #fff; padding: 14px 14px 56px; box-shadow: 6px 8px 0 rgba(0,0,0,.25); backface-visibility: hidden; position: relative; }
+.polaroid .side .asset { aspect-ratio: 1; }
+.polaroid .side .hand { position: absolute; bottom: 12px; left: 0; right: 0; }
+.polaroid .back { transform: rotateY(180deg); display: grid; place-content: center; gap: 10px; padding: 24px; background: var(--riso-yellow); }
+.polaroid .tape { top: -12px; left: 35%; z-index: 5; }
+.flip-hint { font-size: .85rem; margin-top: 14px; }
+
+.letter { background: #fff; border: 2px solid var(--ink); padding: 28px; font-size: 1.05rem; line-height: 32px; min-height: 360px;
+  background-image: repeating-linear-gradient(transparent 0 31px, rgba(0,0,0,.12) 31px 32px); }
+.letter p { margin: 0 0 32px; }
+.caret { display: inline-block; width: .6ch; background: var(--ink); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.fandoms { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+.fact { border: 3px solid var(--ink); padding: 16px; background: #fff; rotate: var(--r); }
+.fact b { display: block; font: 400 2rem var(--stamp); }
+@media (max-width: 760px) { .about, .facts { grid-template-columns: 1fr; } .polaroid { max-width: 300px; margin: 0 auto; } }
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<main class="zine">
+  <article class="page" aria-labelledby="t">
+    <h1 class="riso-title" id="t" data-t="Hola, soy Glenn" style="margin-bottom:40px">Hola, soy Glenn</h1>
+    <div class="about">
+      <div>
+        <button class="polaroid" aria-pressed="false" aria-label="Voltear la polaroid">
+          <span class="tape pink" aria-hidden="true"></span>
+          <span class="flip">
+            <span class="side"><span class="asset" data-asset="su foto"></span><span class="hand">fresa perdida 🍓</span></span>
+            <span class="side back"><span class="hand">dato curioso:</span><span>Aquí va algo que nadie sabe de ella. Ej.: de dónde viene “fresa perdida”.</span></span>
+          </span>
+        </button>
+        <p class="hand flip-hint">↑ tócala para voltearla</p>
+      </div>
+      <div>
+        <div class="letter" id="letter">
+          <p>Querida persona que lee esto:</p>
+          <p>Soy Glenn (ella/she/they), artista visual y fangirl. Aquí va su texto: desde cuándo pinta, por qué empezó a intervenir fotos y qué la inspira.</p>
+          <p>Segundo párrafo: los conciertos, los artistas que la notaron y por qué le gusta darle color a su mundo.</p>
+          <p class="hand">— Glenn ♡</p>
+        </div>
+        <div class="fandoms" aria-label="Mis fandoms"><span class="dymo">fandom 1</span><span class="dymo red">fandom 2</span><span class="dymo">fandom 3</span><span class="dymo">fandom 4</span></div>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact" style="--r:-2deg"><b>100</b>obras publicadas</div>
+      <div class="fact glitter" style="--r:1.5deg"><b style="color:#fff;text-shadow:2px 2px 0 #111">6.8k</b><span style="background:#fff;padding:2px 6px">personas siguiendo el brillo</span></div>
+      <div class="fact" style="--r:-1deg"><b>∞</b>piedritas pegadas una por una</div>
+    </div>
+    <span class="folio">07</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+// Polaroid volteable
+const pol = document.querySelector(".polaroid");
+pol.onclick = () => pol.setAttribute("aria-pressed", pol.getAttribute("aria-pressed") !== "true");
+
+// La carta se escribe a máquina la primera vez que aparece.
+// El texto real está en el DOM desde el inicio; solo se oculta visualmente.
+const letter = document.getElementById("letter");
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const ps = [...letter.querySelectorAll("p")];
+  const texts = ps.map(p => p.textContent);
+  const ghost = letter.cloneNode(true);
+  ghost.removeAttribute("id"); ghost.setAttribute("aria-hidden", "true");
+  ghost.querySelectorAll("p").forEach(p => p.textContent = "");
+  letter.classList.add("sr-only");
+  letter.after(ghost);
+  const gps = ghost.querySelectorAll("p");
+  const caret = document.createElement("span"); caret.className = "caret"; caret.innerHTML = "&nbsp;";
+  let i = 0, c = 0;
+  const tick = () => {
+    if (i >= texts.length) return caret.remove();
+    gps[i].textContent = texts[i].slice(0, ++c); gps[i].append(caret);
+    if (c >= texts[i].length) { i++; c = 0; setTimeout(tick, 280); } else setTimeout(tick, 22);
+  };
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); tick(); } }).observe(ghost);
+}
+</script>
+</body>
+</html>
