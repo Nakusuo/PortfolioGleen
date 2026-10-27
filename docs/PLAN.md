@@ -31,6 +31,8 @@ Una web que haga tres cosas, en este orden de importancia:
 | Artista con plantilla Shopify Minimal | Menú fijo en todas las páginas. Arte separado por **tipo**; dentro de cada tipo, de **más reciente a más antiguo**. Se pueden crear categorías aunque parezcan raras si hay volumen. |
 | Artista con "categorías" y "proyectos" | Cada sección puede tener su propia presentación. El reto es la **home**: tiene que presentar todos los medios a quien solo hace scroll. |
 | studio-w.art | Categorías por tema (mascotas, personas, naturaleza, ilustración) en vez de por material. Útil si los encargos se concentran en un tema. |
+| [Neha Jangid (theyellowdiary)](https://www.wallofportfolios.in/portfolios/neha-jangid/) | Escritorio de papel cuadriculado, objetos reales recortados con sombra que se arrastran, menú con sello dibujado al centro, papel kraft rasgado que deja ver el texto, fotos con esquinas redondeadas y "pastillas" de habilidades alrededor de un objeto. |
+| [Keerthi Gurram](https://www.wallofportfolios.in/portfolios/keerthi-gurram/) | Objetos recortados encima del título (aquí, la fresa sobre "GLENN") y fichas de obra limpias: título grande y técnica en mayúsculas. |
 
 ## 3. Concepto: el sitio es un fanzine
 
@@ -95,7 +97,10 @@ En la maqueta, cada hueco con trama de puntos lleva el nombre del asset que va a
 
 - [ ] Logo o firma (SVG o PNG transparente)
 - [ ] Su personaje/autorretrato recortado para la portada
-- [ ] 3 stickers o doodles sueltos para la portada
+- [ ] Fotos recortadas (PNG sin fondo) de objetos de su mesa: frasco de glitter, entrada de concierto, pincel, frasco de pinceles
+- [ ] Una fresa recortada para el título de la portada
+- [ ] Su sello o logo dibujado a mano para el centro de la cabecera
+- [ ] 3 fotos suyas para "Un vistazo a mi mundo"
 - [ ] Letras recortadas de verdad para "GLENN", si quiere sustituir las tipográficas
 - [ ] Un dato curioso para el reverso de la polaroid
 - [ ] 15–30 obras con: título, categoría, técnica, tamaño, año, disponible sí/no

@@ -14,8 +14,11 @@ const PAGES = [
 ];
 
 // Alto de la barra de maqueta, para que las páginas a pantalla completa la descuenten
+const mast = document.querySelector(".masthead") || { offsetHeight: 0 };
+
+// Alto de lo que hay encima de la hoja, para que la portada a pantalla completa lo descuente
 const mockbar = document.querySelector(".mockbar");
-const setBar = () => document.documentElement.style.setProperty("--bar", (mockbar ? mockbar.offsetHeight : 0) + "px");
+const setBar = () => document.documentElement.style.setProperty("--bar", ((mockbar ? mockbar.offsetHeight : 0) + mast.offsetHeight) + "px");
 setBar(); addEventListener("resize", setBar);
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
