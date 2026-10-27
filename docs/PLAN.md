@@ -81,15 +81,23 @@ poco desalineadas, como una impresión real:
 **Regla de contraste:** el texto siempre va en negro, o en blanco sobre negro.
 Nunca en tinta de color.
 
-**Tipografía** (Google Fonts):
-- **Archivo Black**: títulos con desregistro rosa/verde.
-- **Rubik Mono One**: sellos, etiquetas Dymo y números.
+**Tipografía** (Google Fonts, provisional):
+- **Archivo Black**: títulos y sellos. Solo algunas páginas llevan el desregistro rosa.
 - **Courier Prime**: texto corrido, como escrito a máquina.
-- **Rock Salt**: notas a mano.
-- **Bowlby One** y **Special Elite**: solo para las letras recortadas de la portada.
+- **Nanum Pen Script**: notas a mano, **hasta tener la letra de Glenn** como fuente (Calligraphr).
+- **Bowlby One** y **Special Elite**: solo para las letras recortadas de la portada, hasta tener letras recortadas de revista escaneadas.
 
-**Recursos gráficos:** cinta adhesiva, etiquetas Dymo, sellos de tinta, bordes
-rasgados, trama de puntos, polaroids, ticket con código de barras y cupón con tijera.
+### Reglas para que no parezca hecho por IA
+
+Salieron de revisar la maqueta (rama `feature/correcion-aspecto`):
+
+1. **Nada de sombra dura en todo.** Solo los botones llevan sombra desplazada; fotos, hojas y objetos llevan sombra suave de papel.
+2. **Pocas metáforas:** fotocopia, cinta, stickers y sus fotos intervenidas. El ticket queda solo en Encargos y las etiquetas Dymo solo como pie de obra.
+3. **Imperfecto a propósito:** cada hoja y cada obra tiene un giro distinto (no siempre ±3°); el borde rasgado y la cinta son irregulares.
+4. **Movimiento solo si informa:** pasar página, abrir una obra y el cursor. Nada de titileos, brillos animados ni rastros.
+5. **Romper la retícula:** obras que se salen de la hoja, texto en vertical, la primera ilustración grande, palabras gigantes de fondo.
+6. **Su voz:** textos en minúscula, cortos, con sus expresiones ("open agenda!", "me gusta darle color a mi mundo"). Nada de frases de plantilla ni filas de cifras.
+7. **Material real antes que efectos CSS:** cuando lleguen sus escaneos (papel, cinta, rasgados, letras recortadas), reemplazan a los efectos dibujados con código.
 
 ## 6. Qué necesitamos de ella (assets)
 

@@ -197,19 +197,3 @@ document.querySelectorAll("[data-drag]").forEach(el => {
 });
 document.querySelectorAll("[data-reset]").forEach(b => b.onclick = () =>
   document.querySelectorAll("[data-drag]").forEach(el => el._reset && el._reset()));
-
-// ---------- Rastro de estrellitas (solo con ratón y sin "reducir movimiento") ----------
-if (!reduceMotion && matchMedia("(pointer: fine)").matches) {
-  const COLORS = ["#FFE800", "#FF48B0", "#E3242B", "#FFFFFF"];
-  let last = 0;
-  addEventListener("pointermove", e => {
-    const now = performance.now();
-    if (now - last < 45) return;
-    last = now;
-    const s = document.createElement("span");
-    s.className = "spark"; s.textContent = "✦"; s.setAttribute("aria-hidden", "true");
-    s.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;color:${COLORS[Math.random() * 4 | 0]};text-shadow:0 0 1px #111`;
-    document.body.append(s);
-    setTimeout(() => s.remove(), 800);
-  });
-}

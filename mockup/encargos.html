@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Encargos — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
 <script src="assets/turn.js"></script>
 <link rel="expect" href="#zine" blocking="render">
 <style>
 /* Arma tu encargo: el ticket se imprime a medida que eliges */
 .builder { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; align-items: start; }
-.builder fieldset { border: 3px solid var(--ink); background: #fff; padding: 16px 18px 18px; margin: 0 0 18px; }
-.builder legend { font: 400 .85rem var(--stamp); background: var(--ink); color: #fff; padding: 4px 10px; }
+.builder fieldset { border: 0; border-top: 2px dashed var(--ink); background: none; padding: 18px 0 8px; margin: 0 0 18px; }
+.builder legend { font: 400 1.6rem var(--hand); padding: 0 8px 0 0; }
 .choice { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.choice label { position: relative; display: grid; gap: 6px; padding: 10px; border: 2px solid var(--ink); cursor: var(--cursor-hand); transition: translate .15s, box-shadow .15s, background .15s; }
-.choice label:hover { translate: -2px -2px; box-shadow: 4px 4px 0 var(--ink); }
+.choice label { position: relative; display: grid; gap: 6px; padding: 10px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.15); cursor: var(--cursor-hand); transition: translate .15s, box-shadow .15s, background .15s; }
+.choice label:hover { translate: 0 -3px; }
 .choice input { position: absolute; opacity: 0; }
-.choice label:has(input:checked) { background: var(--riso-pink); box-shadow: 4px 4px 0 var(--ink); }
+.choice label:has(input:checked) { background: #fff; box-shadow: 0 0 0 3px var(--riso-red), 0 10px 18px -8px rgba(0,0,0,.4); rotate: -1deg; }
 .choice label:has(input:focus-visible) { outline: 3px dashed var(--riso-red); outline-offset: 3px; }
 .choice .asset { aspect-ratio: 1; }
 .choice b { font-size: .95rem; }
@@ -67,17 +67,17 @@ summary { font-weight: 700; cursor: var(--cursor-hand); min-height: 32px; }
   <a href="encargos.html">encargos</a>
 </header>
 <main class="zine" id="zine">
-  <article class="page yellow" aria-labelledby="t">
+  <article style="--sheet-tilt:.55deg" class="page yellow" aria-labelledby="t">
     <div class="head">
       <h1 class="riso-title" id="t" data-t="Encargos">Encargos</h1>
-      <span class="stamp drop" style="background:#fff">open agenda!</span>
+      <span class="stamp" style="background:#fff;rotate:-4.6deg">open agenda!</span>
     </div>
-    <p class="lead">Arma tu encargo y mira el precio al momento. Cuando te guste, pídelo con ese ticket.</p>
+    <p class="lead">¿quieres una? elige qué y te digo más o menos cuánto. el precio final lo vemos juntas.</p>
 
     <div class="builder">
       <form id="build" onsubmit="return false">
         <fieldset>
-          <legend>1 · ¿Qué quieres?</legend>
+          <legend>1. ¿qué quieres?</legend>
           <div class="choice">
             <label><input type="radio" name="base" value="foto" data-p="60" checked><div class="asset" data-asset="ejemplo foto intervenida"></div><b>Foto intervenida</b><small>tu foto de concierto o de tu artista · A4 · ~1 semana</small></label>
             <label><input type="radio" name="base" value="retrato" data-p="150"><div class="asset" data-asset="ejemplo retrato mixed media"></div><b>Retrato mixed media</b><small>tu foto + pintura + collage · A3 · ~2 semanas</small></label>
@@ -85,7 +85,7 @@ summary { font-weight: 700; cursor: var(--cursor-hand); min-height: 32px; }
           </div>
         </fieldset>
         <fieldset>
-          <legend>2 · Detalles</legend>
+          <legend>2. detalles</legend>
           <div class="row2">
             <span style="font-weight:700" id="pj-l">Personas extra</span>
             <div class="stepper" role="group" aria-labelledby="pj-l">

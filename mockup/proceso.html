@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Detrás — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
 <script src="assets/turn.js"></script>
 <link rel="expect" href="#zine" blocking="render">
 <style>
 /* Desliza para ir sumando capas a la pieza */
 .layers { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-.stage { position: relative; aspect-ratio: 4/5; border: 3px solid var(--ink); box-shadow: 10px 12px 0 var(--ink); background: #fff; }
+.stage { position: relative; aspect-ratio: 4/5; box-shadow: 0 2px 3px rgba(0,0,0,.2), 0 26px 40px -18px rgba(0,0,0,.5); background: #fff; rotate: -1.2deg; }
 .stage .asset { position: absolute; inset: 0; border: 0; opacity: 0; transition: opacity .4s, scale .4s var(--pop); scale: .96; }
 .stage .asset.on { opacity: 1; scale: 1; }
 .stage .tape { top: -14px; left: 38%; rotate: -4deg; }
@@ -40,10 +40,10 @@ input[type=range]::-moz-range-thumb { width: 30px; height: 30px; background: var
   <a href="encargos.html">encargos</a>
 </header>
 <main class="zine" id="zine">
-  <article class="page" aria-labelledby="t">
+  <article style="--sheet-tilt:-.4deg" class="page" aria-labelledby="t">
     <div class="head">
-      <h1 class="riso-title" id="t" data-t="Detrás">Detrás</h1>
-      <span class="stamp drop">hecho a mano</span>
+      <h1 class="riso-title plain" id="t" data-t="Detrás">Detrás</h1>
+      <span class="hand">todo va pegado a mano, nada es filtro</span>
     </div>
     <div class="layers">
       <div class="stage">
@@ -60,7 +60,7 @@ input[type=range]::-moz-range-thumb { width: 30px; height: 30px; background: var
           <p id="sd" style="margin:0">Elijo la foto (de un concierto, de tu artista o tuya) y la imprimo grande.</p>
         </div>
         <div class="slider">
-          <label for="range" class="hand">desliza para sumar capas →</label>
+          <label for="range" class="hand">desliza → capa por capa</label>
           <input id="range" type="range" min="0" max="3" step="1" value="0" aria-valuetext="Paso 1 de 4: La foto">
           <div class="ticks" role="group" aria-label="Ir a un paso">
             <button data-i="0" aria-pressed="true">01</button><button data-i="1" aria-pressed="false">02</button><button data-i="2" aria-pressed="false">03</button><button data-i="3" aria-pressed="false">04</button>
@@ -77,7 +77,7 @@ input[type=range]::-moz-range-thumb { width: 30px; height: 30px; background: var
       <div>
         <h2 class="step-t">Materiales</h2>
         <div class="materials"><span class="dymo">acrílico</span><span class="dymo">óleo pastel</span><span class="dymo red">glitter</span><span class="dymo">pedrería</span><span class="dymo">lentejuelas</span><span class="dymo red">stickers</span><span class="dymo">fotos impresas</span></div>
-        <p class="hand" style="margin-top:20px">todo va pegado a mano, nada es filtro</p>
+        
       </div>
     </div>
     <span class="folio">05</span>

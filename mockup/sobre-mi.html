@@ -5,20 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sobre mí — Glenn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nanum+Pen+Script&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
 <script src="assets/turn.js"></script>
 <link rel="expect" href="#zine" blocking="render">
 <style>
 .about { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 48px; align-items: start; margin-top: 56px; }
-.peek-t { font: 400 clamp(1.5rem, 3.6vw, 2.4rem)/1.1 var(--hand); text-align: center; margin: 0 0 20px; }
-.kraft .letter { border: 0; min-height: 0; padding: 0 0 8px; max-width: 62ch; margin: 0 auto; }
-.snaps { display: flex; justify-content: center; gap: clamp(12px, 3vw, 32px); margin-top: 28px; }
-.snap { width: clamp(90px, 18vw, 180px); aspect-ratio: 4 / 5; border-radius: 18px; border: 0; rotate: var(--r);
-  box-shadow: 0 10px 18px rgba(0,0,0,.3); transition: rotate .3s var(--pop), translate .3s var(--pop); }
-.snap:hover { rotate: 0deg; translate: 0 -8px; }
-.mini { font: 400 .95rem var(--stamp); margin: 0 0 12px; }
-.pills { list-style: none; padding: 0; }
+.peek-t { font: 400 clamp(2rem, 4.4vw, 3rem)/1 var(--hand); margin: 0 0 16px; }
+.intro { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.letter-wrap { position: relative; background: #FBFAF6; padding: clamp(24px, 4vw, 44px); rotate: -.7deg; box-shadow: 0 1px 2px rgba(0,0,0,.15), 0 18px 30px -16px rgba(0,0,0,.4); }
+.letter-wrap .letter { border: 0; min-height: 0; padding: 0; background-color: transparent; }
+.snaps { display: grid; gap: 18px; justify-items: center; padding-top: 20px; }
+.snap { width: min(100%, 220px); aspect-ratio: 4 / 5; border-radius: 14px; rotate: var(--r); box-shadow: 0 10px 18px -6px rgba(0,0,0,.35); }
+.snap:nth-child(2) { justify-self: end; margin-top: -40px; } .snap:nth-child(3) { justify-self: start; margin-top: -50px; }
+.mini { font-size: 1.6rem; margin: 0 0 12px; }
+@media (max-width: 760px) { .intro { grid-template-columns: 1fr; } .snaps { grid-template-columns: repeat(3, 1fr); padding: 0; } .snap:nth-child(n) { margin: 0; justify-self: center; } }
 /* Polaroid que se voltea: detrás hay un dato curioso */
 .polaroid { perspective: 900px; cursor: var(--cursor-hand); background: none; border: 0; padding: 0; width: 100%; text-align: center; }
 .polaroid .flip { position: relative; display: grid; transition: transform .6s var(--pop); transform-style: preserve-3d; rotate: -4deg; }
@@ -30,7 +31,7 @@
 .polaroid .tape { top: -12px; left: 35%; z-index: 5; }
 .flip-hint { font-size: .85rem; margin-top: 14px; }
 
-.letter { background: #fff; border: 2px solid var(--ink); padding: 28px; font-size: 1.05rem; line-height: 32px; min-height: 360px;
+.letter { background: #fff; padding: 28px; font-size: 1.05rem; line-height: 32px; min-height: 360px;
   background-image: repeating-linear-gradient(transparent 0 31px, rgba(0,0,0,.12) 31px 32px); }
 .letter p { margin: 0 0 32px; }
 .caret { display: inline-block; width: .6ch; background: var(--ink); animation: blink 1s steps(2) infinite; }
@@ -50,29 +51,27 @@
   <a href="encargos.html">encargos</a>
 </header>
 <main class="zine" id="zine">
-  <article class="page" aria-labelledby="t">
-    <h1 class="riso-title" id="t" data-t="Hola, soy Glenn" style="margin-bottom:32px">Hola, soy Glenn</h1>
+  <article style="--sheet-tilt:-.3deg" class="page" aria-labelledby="t">
+    <h1 class="riso-title" id="t" data-t="hola, soy glenn" style="margin-bottom:32px;text-transform:none">hola, soy glenn</h1>
 
-    <!-- Papel kraft rasgado: deja ver la carta -->
-    <section class="kraft" aria-labelledby="peek-t">
-      <span class="curl-edge" aria-hidden="true"></span>
-      <span class="star" style="top:-10px;left:50%;--s:58px;--r:-8deg" aria-hidden="true"></span>
-      <div class="hole">
-        <h2 id="peek-t" class="peek-t">Un vistazo a mi mundo</h2>
+    <div class="intro">
+      <div class="letter-wrap">
+        <span class="tape" style="top:-12px;left:42%;rotate:-3deg" aria-hidden="true"></span>
+        <h2 class="peek-t">un vistazo a mi mundo</h2>
         <div class="letter" id="letter">
-          <p>Querida persona que lee esto:</p>
-          <p>Soy Glenn (ella/she/they), artista visual y fangirl. Aquí va su texto: desde cuándo pinta, por qué empezó a intervenir fotos y qué la inspira.</p>
-          <p>Segundo párrafo: los conciertos, los artistas que la notaron y por qué le gusta darle color a su mundo.</p>
-          <p class="hand">— Glenn ♡</p>
+          <p>hola, persona que lee esto:</p>
+          <p>soy glenn (ella/she/they), artista visual y fangirl. aquí va su texto: desde cuándo pinta, por qué empezó a pintar encima de fotos y qué la inspira.</p>
+          <p>segundo párrafo: los conciertos, los artistas que la notaron y por qué le gusta darle color a su mundo.</p>
+          <p class="hand">— glenn ♡</p>
         </div>
-        <p style="text-align:center;margin:8px 0 0"><a class="btn" href="contacto.html">Escríbeme ✉</a></p>
+        <p style="margin:8px 0 0"><a class="btn" href="contacto.html">escríbeme</a></p>
       </div>
       <div class="snaps">
-        <div class="asset snap" style="--r:-6deg" data-asset="foto 1"></div>
-        <div class="asset snap" style="--r:3deg" data-asset="foto 2"></div>
-        <div class="asset snap" style="--r:-2deg" data-asset="foto 3"></div>
+        <div class="asset snap" style="--r:-5.2deg" data-asset="foto 1"></div>
+        <div class="asset snap" style="--r:2.7deg" data-asset="foto 2"></div>
+        <div class="asset snap" style="--r:-1.3deg" data-asset="foto 3"></div>
       </div>
-    </section>
+    </div>
 
     <div class="about">
       <div>
@@ -86,29 +85,11 @@
         <p class="hand flip-hint">↑ tócala para voltearla</p>
       </div>
       <div>
-        <h2 class="mini">Mis fandoms ahora mismo</h2>
+        <h2 class="hand mini">mis fandoms ahora mismo:</h2>
         <div class="fandoms"><span class="dymo">fandom 1</span><span class="dymo red">fandom 2</span><span class="dymo">fandom 3</span><span class="dymo">fandom 4</span></div>
-        <div class="facts">
-          <div class="fact" style="--r:-2deg"><b>100</b>obras publicadas</div>
-          <div class="fact glitter" style="--r:1.5deg"><b style="color:#fff;text-shadow:2px 2px 0 #111">6.8k</b><span style="background:#fff;padding:2px 6px">personas siguiendo el brillo</span></div>
-          <div class="fact" style="--r:-1deg"><b>∞</b>piedritas pegadas una por una</div>
-        </div>
       </div>
     </div>
 
-    <!-- Lo que hago, alrededor de un objeto de su mesa -->
-    <section aria-labelledby="mesa-t" style="margin-top:56px">
-      <h2 class="riso-title" id="mesa-t" data-t="Lo que traigo a la mesa" style="font-size:clamp(1.8rem,5vw,3.4rem);text-align:center">Lo que traigo a la mesa</h2>
-      <ul class="pills" role="list">
-        <li class="center"><span class="asset obj" style="position:absolute;inset:0" data-asset="objeto: frasco de pinceles" aria-hidden="true"></span></li>
-        <li class="pill" style="top:4%;left:14%;--r:-6deg">Fotos intervenidas</li>
-        <li class="pill" style="top:0;right:18%;--r:5deg">Arte de conciertos</li>
-        <li class="pill" style="top:40%;left:2%;--r:3deg">Retratos mixed media</li>
-        <li class="pill" style="top:44%;right:4%;--r:-4deg">Pintura</li>
-        <li class="pill" style="bottom:6%;left:16%;--r:-3deg">Stickers</li>
-        <li class="pill" style="bottom:2%;right:16%;--r:6deg">Regalos personalizados</li>
-      </ul>
-    </section>
     <span class="folio">07</span>
   </article>
 </main>
