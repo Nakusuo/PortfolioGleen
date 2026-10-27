@@ -74,7 +74,9 @@ summary { font-weight: 700; cursor: var(--cursor-hand); min-height: 32px; }
     </div>
     <p class="lead">¿quieres una? elige qué y te digo más o menos cuánto. el precio final lo vemos juntas.</p>
 
-    <div class="builder">
+    <div class="builder" style="position:relative">
+      <span class="margin-note red hide-sm" style="right:60px;top:-34px;--r:5deg" aria-hidden="true">más o menos, eh</span>
+      <svg class="doodle draw hide-sm" style="--ar:0.667;right:28px;top:-26px;--w:30px;--r:-20deg" aria-hidden="true"><use href="assets/doodles.svg#arrow-down"/></svg>
       <form id="build" onsubmit="return false">
         <fieldset>
           <legend>1. ¿qué quieres?</legend>

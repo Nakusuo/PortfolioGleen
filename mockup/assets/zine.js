@@ -112,6 +112,16 @@ addEventListener("touchend", e => {
   if (dx > 0 && prev) go(prev.file, "back");
 }, { passive: true });
 
+// ---------- Garabatos: se dibujan una vez al entrar en pantalla ----------
+const doodles = document.querySelectorAll(".doodle.draw");
+if (reduceMotion) doodles.forEach(d => d.classList.add("in"));
+else {
+  const dio = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add("in"), 250); dio.unobserve(e.target); }
+  }), { threshold: .5 });
+  doodles.forEach(d => dio.observe(d));
+}
+
 // ---------- Sellos que "caen" al entrar en pantalla ----------
 const stamps = document.querySelectorAll(".stamp.drop");
 if (reduceMotion) stamps.forEach(s => s.classList.add("in"));
