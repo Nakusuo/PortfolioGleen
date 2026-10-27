@@ -15,7 +15,7 @@
 .builder fieldset { border: 3px solid var(--ink); background: #fff; padding: 16px 18px 18px; margin: 0 0 18px; }
 .builder legend { font: 400 .85rem var(--stamp); background: var(--ink); color: #fff; padding: 4px 10px; }
 .choice { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.choice label { position: relative; display: grid; gap: 6px; padding: 10px; border: 2px solid var(--ink); cursor: pointer; transition: translate .15s, box-shadow .15s, background .15s; }
+.choice label { position: relative; display: grid; gap: 6px; padding: 10px; border: 2px solid var(--ink); cursor: var(--cursor-hand); transition: translate .15s, box-shadow .15s, background .15s; }
 .choice label:hover { translate: -2px -2px; box-shadow: 4px 4px 0 var(--ink); }
 .choice input { position: absolute; opacity: 0; }
 .choice label:has(input:checked) { background: var(--riso-pink); box-shadow: 4px 4px 0 var(--ink); }
@@ -24,13 +24,13 @@
 .choice b { font-size: .95rem; }
 .choice small { font-size: .8rem; }
 .row2 { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
-.check { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; cursor: pointer; max-width: 100%; }
+.check { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; cursor: var(--cursor-hand); max-width: 100%; }
 .check:has(select) { flex-wrap: wrap; }
 .check select { min-width: 0; flex: 1 1 200px; }
 .check input { flex-shrink: 0; }
 .check input { width: 24px; height: 24px; accent-color: var(--riso-red); }
 .stepper { display: inline-flex; align-items: center; border: 2px solid var(--ink); }
-.stepper button { width: 44px; height: 44px; border: 0; background: var(--riso-yellow); font: 700 1.3rem var(--type); cursor: pointer; }
+.stepper button { width: 44px; height: 44px; border: 0; background: var(--riso-yellow); font: 700 1.3rem var(--type); cursor: var(--cursor-hand); }
 .stepper output { min-width: 48px; text-align: center; font: 400 1.1rem var(--stamp); }
 select { font: inherit; min-height: 44px; max-width: 100%; border: 2px solid var(--ink); background: #fff; padding: 0 10px; }
 
@@ -54,7 +54,7 @@ select { font: inherit; min-height: 44px; max-width: 100%; border: 2px solid var
 .steps li::before { content: counter(s, decimal-leading-zero); font: 400 1.3rem var(--stamp); }
 h3 { font: 400 1rem var(--stamp); margin: 0 0 14px; }
 details { border-bottom: 2px solid var(--ink); padding: 12px 0; }
-summary { font-weight: 700; cursor: pointer; min-height: 32px; }
+summary { font-weight: 700; cursor: var(--cursor-hand); min-height: 32px; }
 @media (max-width: 900px) { .builder, .rules { grid-template-columns: minmax(0, 1fr); } .receipt { position: relative; top: 0; max-width: 380px; margin: 0 auto; } }
 @media (max-width: 520px) { .choice { grid-template-columns: 1fr; } .choice .asset { display: none; } }
 </style>
