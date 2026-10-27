@@ -1,0 +1,174 @@
+/* Glenn · Zine Nº 01
+   Estética fanzine riso: tintas de risografía (rosa fluorescente, rojo, verde,
+   amarillo) superpuestas con multiply sobre papel de fotocopia blanco.
+   Regla de contraste: el texto siempre va en negro o blanco, nunca en tinta. */
+
+:root {
+  --paper: #FFFFFF;
+  --desk: #E9E6E1;
+  --ink: #111111;
+  --riso-pink: #FF48B0;
+  --riso-red: #E3242B;
+  --riso-green: #00A95C;
+  --riso-yellow: #FFE800;
+  --hand: "Rock Salt", cursive;
+  --type: "Courier Prime", "Courier New", monospace;
+  --stamp: "Rubik Mono One", sans-serif;
+  --block: "Archivo Black", sans-serif;
+  --pop: cubic-bezier(.3, 1.6, .5, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 400 17px/1.55 var(--type); overflow-x: hidden; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px dashed var(--riso-red); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.mockbar { background: var(--ink); color: #fff; text-align: center; padding: 6px 16px; font: 400 .75rem var(--type); }
+
+/* ---------- Pasar página entre documentos (View Transitions) ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(sheet) { animation: sheet-out .45s cubic-bezier(.6, 0, .4, 1) both; }
+::view-transition-new(sheet) { animation: sheet-in .55s cubic-bezier(.2, .8, .2, 1) both; }
+html:active-view-transition-type(back)::view-transition-old(sheet) { animation-name: sheet-out-back; }
+html:active-view-transition-type(back)::view-transition-new(sheet) { animation-name: sheet-in-back; }
+@keyframes sheet-out { to { transform: translateX(-60%) rotate(-6deg); opacity: 0; } }
+@keyframes sheet-in { from { transform: translateX(50%) rotate(5deg); opacity: 0; } }
+@keyframes sheet-out-back { to { transform: translateX(60%) rotate(6deg); opacity: 0; } }
+@keyframes sheet-in-back { from { transform: translateX(-50%) rotate(-5deg); opacity: 0; } }
+.page.current { view-transition-name: sheet; }
+.tabs { view-transition-name: tabs; }
+
+/* ---------- Hueco para gráficos (trama de puntos riso) ---------- */
+.asset {
+  position: relative; display: grid; place-items: center; text-align: center; padding: 10px;
+  background: radial-gradient(circle, rgba(255,72,176,.55) 1.6px, transparent 1.8px) 0 0 / 9px 9px, #fff;
+  border: 2px solid var(--ink); font: 700 .72rem/1.3 var(--type); text-transform: uppercase;
+}
+.asset::before { content: "[ " attr(data-asset) " ]"; background: #fff; padding: 2px 6px; }
+
+/* ---------- Página ---------- */
+.zine { max-width: 1180px; margin: 0 auto; padding: 32px 72px 48px 16px; }
+.page {
+  position: relative; background: var(--paper); padding: clamp(24px, 5vw, 64px); min-height: 78svh;
+  box-shadow: 0 2px 0 #CFCAC2, 0 22px 40px -18px rgba(0,0,0,.35); isolation: isolate; overflow: hidden;
+}
+.page::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5; opacity: .1; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.page.pink { background: var(--riso-pink); }
+.page.green { background: var(--riso-green); }
+.page.yellow { background: var(--riso-yellow); }
+.page.dark { background: var(--ink); color: #fff; }
+.folio { position: absolute; bottom: 16px; right: 22px; font: 700 .8rem var(--type); z-index: 6; }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.lead { max-width: 60ch; margin: 0 0 24px; }
+@media (max-width: 760px) { .zine { padding: 16px 12px 120px; } }
+
+/* ---------- Piezas gráficas reutilizables ---------- */
+.tape { position: absolute; width: 110px; height: 30px; background: rgba(255,232,0,.75); z-index: 4; pointer-events: none;
+  clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 2% 96%, 0 50%); mix-blend-mode: multiply; }
+.tape.pink { background: rgba(255,72,176,.7); }
+.dymo { display: inline-block; background: var(--ink); color: #fff; font: 400 .8rem/1 var(--stamp); letter-spacing: .12em;
+  padding: 8px 12px; border-radius: 3px; text-transform: uppercase; box-shadow: inset 0 -2px 0 rgba(255,255,255,.15); border: 0; }
+.dymo.red { background: var(--riso-red); }
+button.dymo { cursor: pointer; min-height: 44px; transition: translate .15s, background .15s; }
+button.dymo:hover { translate: 0 -2px; }
+button.dymo[aria-pressed="true"] { background: var(--riso-red); }
+.stamp { display: inline-block; font: 400 1rem var(--stamp); color: var(--riso-red); border: 4px double var(--riso-red);
+  padding: 8px 14px; text-transform: uppercase; rotate: -8deg; mix-blend-mode: multiply; background: transparent; }
+.stamp.drop { opacity: 0; scale: 1.8; transition: opacity .2s, scale .35s var(--pop); }
+.stamp.drop.in { opacity: 1; scale: 1; }
+.hand { font: 400 1.1rem/1.5 var(--hand); }
+.torn { -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 22px 100%;
+        mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 22px 100%; padding-bottom: 44px; }
+
+/* Título con desregistro riso */
+.riso-title { position: relative; font: 400 clamp(2.8rem, 9vw, 7.5rem)/.88 var(--block); text-transform: uppercase; margin: 0; letter-spacing: -.02em; }
+.riso-title::before, .riso-title::after { content: attr(data-t); position: absolute; inset: 0; mix-blend-mode: multiply; z-index: -1; }
+.riso-title::before { color: var(--riso-pink); translate: 6px 4px; }
+.riso-title::after { color: var(--riso-green); translate: -4px -3px; opacity: .8; }
+.pink .riso-title::before { color: var(--riso-red); }
+.dark .riso-title::before, .dark .riso-title::after { mix-blend-mode: screen; }
+
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border: 3px solid var(--ink); background: var(--riso-red);
+  color: #fff; font: 400 .95rem var(--stamp); cursor: pointer; text-decoration: none; box-shadow: 6px 6px 0 var(--ink); transition: translate .15s, box-shadow .15s; }
+.btn:hover { translate: -2px -2px; box-shadow: 8px 8px 0 var(--ink); }
+.btn:active { translate: 4px 4px; box-shadow: 2px 2px 0 var(--ink); }
+.btn.white { background: #fff; color: var(--ink); }
+
+/* ---------- Pestañas laterales (navegación entre páginas) ---------- */
+.tabs { position: fixed; right: 0; top: 50%; translate: 0 -50%; z-index: 30; display: flex; flex-direction: column; gap: 6px; }
+.tabs a {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px 8px 14px; text-decoration: none;
+  font: 400 .7rem var(--stamp); border: 2px solid var(--ink); border-right: 0; border-radius: 10px 0 0 10px;
+  background: var(--c, #fff); translate: calc(100% - 48px) 0; transition: translate .3s var(--pop);
+  box-shadow: -3px 3px 0 rgba(0,0,0,.25); white-space: nowrap;
+}
+.tabs a b { font: 700 .8rem var(--type); min-width: 22px; }
+.tabs a:hover, .tabs a:focus-visible, .tabs a[aria-current="page"] { translate: 0 0; }
+.tabs a[aria-current="page"] { outline: 3px solid var(--ink); outline-offset: -5px; }
+@media (max-width: 760px) {
+  .tabs { top: auto; bottom: 0; left: 0; right: 0; translate: 0; flex-direction: row; gap: 4px; overflow-x: auto; padding: 8px 8px 0;
+    background: linear-gradient(transparent, rgba(233,230,225,.95) 30%); scrollbar-width: none; }
+  .tabs a { translate: 0 12px; border: 2px solid var(--ink); border-bottom: 0; border-radius: 10px 10px 0 0; padding-bottom: 20px; }
+  .tabs a[aria-current="page"], .tabs a:hover { translate: 0 0; }
+}
+
+/* ---------- Pie con pasar página ---------- */
+.pager { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.pager a { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 14px; text-decoration: none; background: #fff;
+  border: 2px solid var(--ink); font-weight: 700; box-shadow: 4px 4px 0 var(--ink); transition: translate .15s, box-shadow .15s; }
+.pager a:hover { translate: -2px -2px; box-shadow: 6px 6px 0 var(--ink); }
+.pager a small { display: block; font: 400 .7rem var(--stamp); }
+.pager .kbd { font-size: .8rem; opacity: .7; }
+.pager .next { margin-left: auto; text-align: right; }
+
+/* ---------- Lightbox de obra ---------- */
+.obra-dlg { border: 0; padding: 0; background: transparent; max-width: min(980px, 94vw); width: 100%; overflow: visible; }
+.obra-dlg::backdrop { background: rgba(17,17,17,.75); }
+.obra-card { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; background: #fff; border: 3px solid var(--ink); box-shadow: 10px 12px 0 var(--riso-pink); rotate: -1deg; }
+.obra-dlg[open] .obra-card { animation: slap .35s var(--pop); }
+@keyframes slap { from { scale: 1.15; rotate: 4deg; opacity: 0; } }
+.obra-card .asset { min-height: 460px; border: 0; border-right: 3px solid var(--ink); }
+.obra-card .info { padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; }
+.obra-card h2 { font: 400 1.6rem/1.1 var(--block); text-transform: uppercase; margin: 0; }
+.obra-card dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; }
+.obra-card dt { font-weight: 700; text-transform: uppercase; font-size: .8rem; }
+.obra-card dd { margin: 0; }
+.obra-card .tape { top: -14px; left: 40%; }
+.obra-nav { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+.icon-btn { width: 48px; height: 48px; display: grid; place-items: center; border: 2px solid var(--ink); background: #fff; cursor: pointer; }
+.icon-btn:hover { background: var(--riso-yellow); }
+.obra-close { position: absolute; top: -18px; right: -18px; z-index: 5; border-radius: 50%; background: var(--riso-yellow); }
+@media (max-width: 720px) { .obra-card { grid-template-columns: 1fr; } .obra-card .asset { min-height: 280px; border-right: 0; border-bottom: 3px solid var(--ink); } .obra-close { right: 4px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .stamp.drop { opacity: 1; scale: 1; }
+}
+
+/* ---------- Su sello: estrellas amarillas, glitter y pedrería ---------- */
+.star { position: absolute; width: var(--s, 60px); aspect-ratio: 1; background: var(--riso-yellow); z-index: 3; pointer-events: none;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  rotate: var(--r, 0deg); filter: drop-shadow(2px 3px 0 var(--ink)); animation: twinkle 3s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.star.pink { background: var(--riso-pink); }
+@keyframes twinkle { 50% { scale: 1.15; rotate: calc(var(--r, 0deg) + 12deg); } }
+/* Glitter: capas de puntos de colores que titilan */
+.glitter, .page .glitter {
+  background:
+    radial-gradient(circle, #fff 0 1px, transparent 1.5px) 0 0 / 11px 13px,
+    radial-gradient(circle, var(--riso-yellow) 0 1.2px, transparent 1.8px) 4px 6px / 17px 15px,
+    radial-gradient(circle, #ff9ad5 0 1.4px, transparent 2px) 9px 2px / 13px 19px,
+    linear-gradient(135deg, #ff2e97, #ff6fbf 40%, #e3242b);
+  animation: shimmer 2.4s linear infinite;
+}
+@keyframes shimmer { to { background-position: 11px 13px, -13px 21px, 22px 21px, 0 0; } }
+/* Borde de pedrería */
+.gems { padding: 12px; background: radial-gradient(circle, #fff 0 1.5px, #ff48b0 2.5px 4.5px, #9b0050 5px, transparent 6px) 0 0 / 15px 15px, var(--riso-yellow); }
+/* Rastro de estrellitas del cursor */
+.spark { position: fixed; z-index: 300; pointer-events: none; font-size: 14px; translate: -50% -50%; animation: spark .8s ease-out forwards; }
+@keyframes spark { to { opacity: 0; transform: translateY(18px) scale(.4) rotate(90deg); } }

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detrás — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+/* Desliza para ir sumando capas a la pieza */
+.layers { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+.stage { position: relative; aspect-ratio: 4/5; border: 3px solid var(--ink); box-shadow: 10px 12px 0 var(--ink); background: #fff; }
+.stage .asset { position: absolute; inset: 0; border: 0; opacity: 0; transition: opacity .4s, scale .4s var(--pop); scale: .96; }
+.stage .asset.on { opacity: 1; scale: 1; }
+.stage .tape { top: -14px; left: 38%; rotate: -4deg; }
+.step-n { font: 400 clamp(4rem, 10vw, 7rem)/1 var(--stamp); margin: 0; }
+.step-t { font: 400 1.6rem var(--block); text-transform: uppercase; margin: 8px 0; }
+.slider { margin: 28px 0 10px; }
+.slider label { font-weight: 700; display: block; margin-bottom: 10px; }
+input[type=range] { width: 100%; appearance: none; height: 14px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 25%), var(--riso-yellow); border: 2px solid var(--ink); }
+input[type=range]::-webkit-slider-thumb { appearance: none; width: 36px; height: 36px; background: var(--riso-red); border: 3px solid var(--ink); border-radius: 50%; cursor: grab; box-shadow: 3px 3px 0 var(--ink); }
+input[type=range]::-moz-range-thumb { width: 30px; height: 30px; background: var(--riso-red); border: 3px solid var(--ink); border-radius: 50%; cursor: grab; }
+.ticks { display: flex; justify-content: space-between; font: 400 .7rem var(--stamp); }
+.ticks button { background: none; border: 0; cursor: pointer; padding: 8px 0; min-height: 44px; font: inherit; }
+.ticks button[aria-pressed="true"] { color: var(--riso-red); text-decoration: underline 3px; }
+.below { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 56px; align-items: start; }
+.video { aspect-ratio: 16/9; box-shadow: 8px 8px 0 var(--riso-pink); }
+.materials { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 860px) { .layers, .below { grid-template-columns: 1fr; } .stage { max-width: 420px; } }
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<main class="zine">
+  <article class="page" aria-labelledby="t">
+    <div class="head">
+      <h1 class="riso-title" id="t" data-t="Detrás">Detrás</h1>
+      <span class="stamp drop">hecho a mano</span>
+    </div>
+    <div class="layers">
+      <div class="stage">
+        <span class="tape" aria-hidden="true"></span>
+        <div class="asset on" data-asset="paso 1 · la foto impresa"></div>
+        <div class="asset" data-asset="paso 2 · pintura encima"></div>
+        <div class="asset" data-asset="paso 3 · glitter y pedrería"></div>
+        <div class="asset" data-asset="paso 4 · stickers y detalle"></div>
+      </div>
+      <div>
+        <p class="step-n" id="sn" aria-hidden="true">01</p>
+        <div role="status" aria-live="polite">
+          <h2 class="step-t" id="st">La foto</h2>
+          <p id="sd" style="margin:0">Elijo la foto (de un concierto, de tu artista o tuya) y la imprimo grande.</p>
+        </div>
+        <div class="slider">
+          <label for="range" class="hand">desliza para sumar capas →</label>
+          <input id="range" type="range" min="0" max="3" step="1" value="0" aria-valuetext="Paso 1 de 4: La foto">
+          <div class="ticks" role="group" aria-label="Ir a un paso">
+            <button data-i="0" aria-pressed="true">01</button><button data-i="1" aria-pressed="false">02</button><button data-i="2" aria-pressed="false">03</button><button data-i="3" aria-pressed="false">04</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="below">
+      <div>
+        <h2 class="step-t">Timelapse</h2>
+        <div class="asset video" data-asset="reel de proceso (de su IG)"></div>
+      </div>
+      <div>
+        <h2 class="step-t">Materiales</h2>
+        <div class="materials"><span class="dymo">acrílico</span><span class="dymo">óleo pastel</span><span class="dymo red">glitter</span><span class="dymo">pedrería</span><span class="dymo">lentejuelas</span><span class="dymo red">stickers</span><span class="dymo">fotos impresas</span></div>
+        <p class="hand" style="margin-top:20px">todo va pegado a mano, nada es filtro</p>
+      </div>
+    </div>
+    <span class="folio">05</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+const STEPS = [
+  ["La foto", "Elijo la foto (de un concierto, de tu artista o tuya) y la imprimo grande."],
+  ["Pintura", "Acrílico y óleo pastel encima: corazones, llamas, colores que no estaban."],
+  ["Brillo", "Glitter, pedrería y lentejuelas pegadas una por una."],
+  ["Detalle", "Stickers, estrellas y el último toque. Foto, reel y listo."],
+];
+const range = document.getElementById("range");
+const layers = document.querySelectorAll(".stage .asset");
+const ticks = document.querySelectorAll(".ticks button");
+const set = i => {
+  range.value = i;
+  layers.forEach((l, j) => l.classList.toggle("on", j === +i));
+  ticks.forEach(t => t.setAttribute("aria-pressed", t.dataset.i == i));
+  document.getElementById("sn").textContent = "0" + (+i + 1);
+  document.getElementById("st").textContent = STEPS[i][0];
+  document.getElementById("sd").textContent = STEPS[i][1];
+  range.setAttribute("aria-valuetext", `Paso ${+i + 1} de 4: ${STEPS[i][0]}`);
+};
+range.oninput = () => set(range.value);
+ticks.forEach(t => t.onclick = () => set(t.dataset.i));
+</script>
+</body>
+</html>

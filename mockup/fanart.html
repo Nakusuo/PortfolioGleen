@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fangirl — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+.center { text-align: center; }
+.fandoms { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 18px 0 36px; }
+/* Hoja de stickers: al pasar el ratón se despega la esquina */
+.sheet { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; justify-items: center; }
+.stk { position: relative; width: 100%; max-width: 220px; aspect-ratio: 1; padding: 10px; background: #fff; display: block; text-decoration: none;
+  box-shadow: 0 0 0 4px var(--ink), 6px 8px 0 4px rgba(0,0,0,.25); rotate: var(--r); transition: rotate .3s var(--pop), scale .3s var(--pop), opacity .3s;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+.stk.round { border-radius: 50%; clip-path: none; }
+.stk.blob { border-radius: 30% 70% 60% 40% / 50% 40% 60% 50%; clip-path: none; }
+.stk .asset { width: 100%; height: 100%; border-radius: inherit; border: none; }
+.stk::after { content: ""; position: absolute; right: 0; bottom: 0; width: 0; height: 0; z-index: 3;
+  background: linear-gradient(135deg, transparent 50%, #f1f1f1 50%, #c9c9c9); box-shadow: -3px -3px 6px rgba(0,0,0,.25); transition: width .3s var(--pop), height .3s var(--pop); }
+.stk:not(.round):not(.blob):hover::after, .stk:not(.round):not(.blob):focus-visible::after { width: 54px; height: 54px; }
+.stk:hover, .stk:focus-visible { rotate: 0deg; scale: 1.08; }
+.stk[hidden] { display: none; }
+.stk .dymo { position: absolute; bottom: -12px; left: 50%; translate: -50% 0; z-index: 4; white-space: nowrap; }
+/* Muro "noticed!": capturas de artistas que compartieron su arte */
+.noticed { margin-top: 72px; position: relative; }
+.noticed .head { justify-content: center; text-align: center; }
+.noticed .stamp { font-size: clamp(1.6rem, 5vw, 3rem); background: #fff; rotate: -6deg; }
+.wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 28px; }
+.shot { background: #fff; border: 3px solid var(--ink); border-radius: 22px; padding: 10px 10px 14px; rotate: var(--r); box-shadow: 6px 8px 0 var(--ink); transition: rotate .3s var(--pop); }
+.shot:hover { rotate: 0deg; }
+.shot .asset { aspect-ratio: 9/16; border-radius: 12px; border: 0; }
+.shot p { margin: 8px 4px 0; font-weight: 700; font-size: .9rem; }
+.shot p small { display: block; font-weight: 400; }
+@media (max-width: 860px) { .wall { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) { .sheet { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<main class="zine">
+  <article class="page pink torn" aria-labelledby="t">
+    <div class="center">
+      <h1 class="riso-title" id="t" data-t="Fangirl!!">Fangirl!!</h1>
+      <p class="hand">arte de concierto y de mis artistas favoritos ♡</p>
+    </div>
+    <div class="fandoms" role="group" aria-label="Filtrar por fandom">
+      <button class="dymo" data-f="all" aria-pressed="true">todos</button>
+      <button class="dymo" data-f="f1" aria-pressed="false">fandom 1</button>
+      <button class="dymo" data-f="f2" aria-pressed="false">fandom 2</button>
+      <button class="dymo" data-f="f3" aria-pressed="false">fandom 3</button>
+    </div>
+    <div class="sheet">
+      <a class="stk" href="#" data-k="f1" style="--r:-6deg" data-obra="Concierto 1|Digital|A4|2026|Print disponible"><div class="asset" data-asset="arte de concierto 1"></div><span class="dymo">fandom 1</span></a>
+      <a class="stk round" href="#" data-k="f2" style="--r:5deg" data-obra="Concierto 2|Acuarela|A5|2026|Original disponible"><div class="asset" data-asset="arte de concierto 2"></div><span class="dymo">fandom 2</span></a>
+      <a class="stk blob" href="#" data-k="f1" style="--r:-3deg" data-obra="Concierto 3|Collage|A5|2025|Vendida"><div class="asset" data-asset="arte de concierto 3"></div><span class="dymo">fandom 1</span></a>
+      <a class="stk" href="#" data-k="f3" style="--r:8deg" data-obra="Concierto 4|Digital|A4|2025|Sticker disponible"><div class="asset" data-asset="arte de concierto 4"></div><span class="dymo">fandom 3</span></a>
+      <a class="stk round" href="#" data-k="f3" style="--r:-7deg" data-obra="Concierto 5|Digital|A4|2025|Print disponible"><div class="asset" data-asset="arte de concierto 5"></div><span class="dymo">fandom 3</span></a>
+      <a class="stk" href="#" data-k="f2" style="--r:3deg" data-obra="Concierto 6|Gouache|A5|2024|Vendida"><div class="asset" data-asset="arte de concierto 6"></div><span class="dymo">fandom 2</span></a>
+      <a class="stk blob" href="#" data-k="f1" style="--r:-4deg" data-obra="Concierto 7|Digital|A4|2024|Print disponible"><div class="asset" data-asset="arte de concierto 7"></div><span class="dymo">fandom 1</span></a>
+      <a class="stk round" href="#" data-k="f2" style="--r:6deg" data-obra="Concierto 8|Marcadores|A5|2024|Sketchbook"><div class="asset" data-asset="arte de concierto 8"></div><span class="dymo">fandom 2</span></a>
+    </div>
+    <section class="noticed" aria-labelledby="nt">
+      <div class="head"><h2 id="nt" class="stamp">noticed!</h2></div>
+      <p class="center" style="margin:0">Artistas que vieron y compartieron mi trabajo.</p>
+      <div class="wall">
+        <figure class="shot" style="--r:-3deg"><div class="asset" data-asset="captura historia 1"></div><p>@artista1<small>compartió “corazón de concierto”</small></p></figure>
+        <figure class="shot" style="--r:2deg"><div class="asset" data-asset="captura historia 2"></div><p>@artista2<small>respondió a mi dibujo</small></p></figure>
+        <figure class="shot" style="--r:-1deg"><div class="asset" data-asset="captura historia 3"></div><p>@artista3<small>lo subió a su historia</small></p></figure>
+        <figure class="shot" style="--r:4deg"><div class="asset" data-asset="captura historia 4"></div><p>@artista4<small>le dio like ♡</small></p></figure>
+      </div>
+    </section>
+    <span class="star" style="top:5%;left:8%;--s:56px;--r:-10deg" aria-hidden="true"></span>
+    <span class="star" style="top:9%;right:9%;--s:44px;--r:14deg;--d:1.2s" aria-hidden="true"></span>
+    <span class="folio">04</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+document.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
+  document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  document.querySelectorAll(".stk").forEach(s => s.hidden = b.dataset.f !== "all" && s.dataset.k !== b.dataset.f);
+});
+</script>
+</body>
+</html>

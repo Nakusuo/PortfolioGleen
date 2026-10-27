@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixed media — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+/* Mesa de collage: las obras se pueden mover y se abren con clic */
+.scatter { position: relative; height: 720px; }
+.piece { position: absolute; display: block; text-decoration: none; rotate: var(--r); transition: rotate .35s var(--pop), scale .35s var(--pop); cursor: grab; }
+.piece:hover, .piece:focus-visible { rotate: 0deg; scale: 1.05; z-index: 10; }
+.piece:active { cursor: grabbing; }
+.piece .asset { width: 100%; height: 100%; box-shadow: 6px 8px 0 rgba(0,0,0,.25); }
+.piece .dymo { position: absolute; left: -10px; bottom: -14px; z-index: 2; }
+.piece .tape { top: -12px; left: 30%; }
+.p1 { width: 28%; height: 52%; left: 1%; top: 2%; --r: -5deg; }
+.p2 { width: 24%; height: 40%; left: 33%; top: 0; --r: 4deg; }
+.p3 { width: 28%; height: 46%; right: 2%; top: 4%; --r: -3deg; }
+.p4 { width: 30%; height: 38%; left: 6%; bottom: 2%; --r: 3deg; }
+.p5 { width: 26%; height: 36%; left: 40%; bottom: 6%; --r: -2deg; }
+.p6 { width: 22%; height: 34%; right: 4%; bottom: 0; --r: 6deg; }
+.tools { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+@media (max-width: 760px) {
+  .scatter { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 16px; }
+  .piece { position: relative; inset: auto; width: auto; height: auto; aspect-ratio: 3/4; }
+  .tools .hand { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<main class="zine">
+  <article class="page" aria-labelledby="t">
+    <div class="head">
+      <h1 class="riso-title" id="t" data-t="Mixed media">Mixed media</h1>
+      <div class="tools">
+        <span class="hand">arrastra las obras · clic para verlas</span>
+        <button class="dymo" data-reset>ordenar mesa</button>
+      </div>
+    </div>
+    <p class="lead">Fotos impresas intervenidas a mano: acrílico, óleo pastel, glitter, pedrería, lentejuelas, stickers y recortes. De la más nueva a la más antigua.</p>
+    <div class="scatter">
+      <a class="piece p1" href="#" data-drag data-obra="¿Quién vive dentro de mí?|Foto + collage + stickers|A3|2026|Original disponible"><span class="tape" aria-hidden="true"></span><div class="asset" data-asset="obra 1"></div><span class="dymo">¿quién vive dentro de mí?</span></a>
+      <a class="piece p2" href="#" data-drag data-obra="Corazón de concierto|Foto + acrílico + glitter|A4|2026|Vendida"><div class="gems" style="height:100%"><div class="asset" data-asset="obra 2" style="height:100%"></div></div><span class="dymo red">corazón de concierto</span></a>
+      <a class="piece p3" href="#" data-drag data-obra="Brillo|Foto + pedrería + lentejuelas|A4|2025|Original disponible"><span class="tape pink" aria-hidden="true"></span><div class="asset" data-asset="obra 3"></div><span class="dymo">brillo</span></a>
+      <a class="piece p4" href="#" data-drag data-obra="Estrellas|Foto + stickers + óleo pastel|A4|2025|Vendida"><div class="asset" data-asset="obra 4"></div><span class="dymo">estrellas</span></a>
+      <a class="piece p5" href="#" data-drag data-obra="Autorretrato|Foto + acrílico|A4|2025|Original disponible"><div class="asset" data-asset="obra 5"></div><span class="dymo red">autorretrato</span></a>
+      <a class="piece p6" href="#" data-drag data-obra="Fotocopias|Collage + marcador|A4|2024|Vendida"><div class="asset" data-asset="obra 6"></div><span class="dymo">fotocopias</span></a>
+    </div>
+    <span class="star" style="top:3%;right:30%;--s:50px;--r:8deg" aria-hidden="true"></span>
+    <span class="star pink" style="bottom:4%;left:3%;--s:40px;--r:-14deg;--d:1s" aria-hidden="true"></span>
+    <span class="folio">02</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+</body>
+</html>
