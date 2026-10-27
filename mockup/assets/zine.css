@@ -22,29 +22,68 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--desk); color: var(--ink); font: 400 17px/1.55 var(--type); overflow-x: hidden; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
+fieldset { min-width: 0; }   /* por defecto no encoge y desborda en celular */
 :focus-visible { outline: 3px dashed var(--riso-red); outline-offset: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 .mockbar { background: var(--ink); color: #fff; text-align: center; padding: 6px 16px; font: 400 .75rem var(--type); }
 
-/* ---------- Pasar página entre documentos (View Transitions) ---------- */
+/* ---------- Pasar página como una revista ----------
+   Navegadores con View Transitions entre documentos (Chrome, Edge, Safari 18.2+):
+   la hoja actual gira sobre su lomo izquierdo (rotateY) y se oscurece, dejando
+   ver debajo la siguiente, que se aclara al quedar descubierta. Hacia atrás, la
+   página anterior vuelve girando encima. Firefox usa el respaldo de zine.js.
+   Solo se animan transform y filter: barato incluso en celulares. */
 @view-transition { navigation: auto; }
-::view-transition-old(sheet) { animation: sheet-out .45s cubic-bezier(.6, 0, .4, 1) both; }
-::view-transition-new(sheet) { animation: sheet-in .55s cubic-bezier(.2, .8, .2, 1) both; }
-html:active-view-transition-type(back)::view-transition-old(sheet) { animation-name: sheet-out-back; }
-html:active-view-transition-type(back)::view-transition-new(sheet) { animation-name: sheet-in-back; }
-@keyframes sheet-out { to { transform: translateX(-60%) rotate(-6deg); opacity: 0; } }
-@keyframes sheet-in { from { transform: translateX(50%) rotate(5deg); opacity: 0; } }
-@keyframes sheet-out-back { to { transform: translateX(60%) rotate(6deg); opacity: 0; } }
-@keyframes sheet-in-back { from { transform: translateX(-50%) rotate(-5deg); opacity: 0; } }
-.page.current { view-transition-name: sheet; }
+::view-transition-group(sheet) { animation: none; }
+::view-transition-image-pair(sheet) { perspective: 2200px; }
+::view-transition-old(sheet), ::view-transition-new(sheet) {
+  animation-duration: .8s; animation-timing-function: cubic-bezier(.45, .05, .3, 1); animation-fill-mode: both;
+  transform-origin: left center; backface-visibility: hidden; mix-blend-mode: normal; }
+/* Adelante: la hoja de arriba se levanta y se va hacia la izquierda */
+::view-transition-old(sheet) { z-index: 2; animation-name: leaf-turn-away; }
+::view-transition-new(sheet) { z-index: 1; animation-name: leaf-uncover; }
+/* Atrás: la hoja anterior vuelve a caer encima */
+html:active-view-transition-type(back)::view-transition-old(sheet) { z-index: 1; animation-name: leaf-get-covered; }
+html:active-view-transition-type(back)::view-transition-new(sheet) { z-index: 2; animation-name: leaf-turn-back; }
+@keyframes leaf-turn-away {
+  0%   { transform: rotateY(0) skewY(0); filter: brightness(1); }
+  45%  { transform: rotateY(-55deg) skewY(-1.5deg); filter: brightness(.86); }
+  100% { transform: rotateY(-100deg) skewY(0); filter: brightness(.55); } }
+@keyframes leaf-uncover { from { filter: brightness(.72); } to { filter: brightness(1); } }
+@keyframes leaf-turn-back {
+  0%   { transform: rotateY(-100deg); filter: brightness(.55); }
+  55%  { transform: rotateY(-45deg) skewY(-1.5deg); filter: brightness(.86); }
+  100% { transform: rotateY(0) skewY(0); filter: brightness(1); } }
+@keyframes leaf-get-covered { from { filter: brightness(1); } to { filter: brightness(.72); } }
+
+/* Respaldo sin View Transitions: zine.js añade .leaving a la hoja antes de navegar */
+.zine:has(.leaving) { perspective: 2200px; }
+.page.leaving { transform-origin: left center; animation: leaf-lift-left .6s cubic-bezier(.45, .05, .3, 1) forwards; }
+.page.leaving.back { animation-name: leaf-lift-right; transform-origin: right center; }
+@keyframes leaf-lift-left { 45% { transform: rotateY(-50deg) skewY(-1.5deg); filter: brightness(.86); } to { transform: rotateY(-90deg); filter: brightness(.55); } }
+@keyframes leaf-lift-right { 45% { transform: rotateY(50deg) skewY(1.5deg); filter: brightness(.86); } to { transform: rotateY(90deg); filter: brightness(.55); } }
+.page.arriving { animation: leaf-uncover .5s ease-out both; }
+
+/* Esquina doblada: invita a pasar la página (clic o toque) */
+.curl { position: absolute; right: 0; bottom: 0; z-index: 7; width: 64px; height: 64px; display: block;
+  background: linear-gradient(315deg, var(--desk) 0 48%, rgba(0,0,0,.18) 49%, #fdfdfd 51%, #e6e3de 72%, #cfcac2);
+  box-shadow: -4px -4px 8px rgba(0,0,0,.12); border-top-left-radius: 2px;
+  transition: width .35s var(--pop), height .35s var(--pop); }
+.curl:hover, .curl:focus-visible { width: 110px; height: 110px; }
+.curl span { position: absolute; right: 64%; bottom: 64%; translate: 50% 50%; font: 400 .6rem var(--stamp); white-space: nowrap; opacity: 0; transition: opacity .2s; }
+.curl:hover span, .curl:focus-visible span { opacity: 1; }
+.page:has(.curl) .folio { right: 76px; }
+@media (hover: none) { .curl { width: 52px; height: 52px; } }
+
+.zine > .page { view-transition-name: sheet; }
 .tabs { view-transition-name: tabs; }
 
 /* ---------- Hueco para gráficos (trama de puntos riso) ---------- */
 .asset {
   position: relative; display: grid; place-items: center; text-align: center; padding: 10px;
   background: radial-gradient(circle, rgba(255,72,176,.55) 1.6px, transparent 1.8px) 0 0 / 9px 9px, #fff;
-  border: 2px solid var(--ink); font: 700 .72rem/1.3 var(--type); text-transform: uppercase;
+  border: 2px solid var(--ink); font: 700 .72rem/1.3 var(--type); text-transform: uppercase; overflow-wrap: anywhere; min-width: 0;
 }
 .asset::before { content: "[ " attr(data-asset) " ]"; background: #fff; padding: 2px 6px; }
 
@@ -86,7 +125,7 @@ button.dymo[aria-pressed="true"] { background: var(--riso-red); }
         mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 22px 100%; padding-bottom: 44px; }
 
 /* Título con desregistro riso */
-.riso-title { position: relative; font: 400 clamp(2.8rem, 9vw, 7.5rem)/.88 var(--block); text-transform: uppercase; margin: 0; letter-spacing: -.02em; }
+.riso-title { position: relative; font: 400 clamp(2rem, 10vw, 7.5rem)/.88 var(--block); overflow-wrap: break-word; text-transform: uppercase; margin: 0; letter-spacing: -.02em; }
 .riso-title::before, .riso-title::after { content: attr(data-t); position: absolute; inset: 0; mix-blend-mode: multiply; z-index: -1; }
 .riso-title::before { color: var(--riso-pink); translate: 6px 4px; }
 .riso-title::after { color: var(--riso-green); translate: -4px -3px; opacity: .8; }
@@ -148,6 +187,7 @@ button.dymo[aria-pressed="true"] { background: var(--riso-red); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .page.leaving, .page.arriving { animation: none !important; }
   .stamp.drop { opacity: 1; scale: 1; }
 }
 
@@ -156,6 +196,7 @@ button.dymo[aria-pressed="true"] { background: var(--riso-red); }
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   rotate: var(--r, 0deg); filter: drop-shadow(2px 3px 0 var(--ink)); animation: twinkle 3s ease-in-out infinite; animation-delay: var(--d, 0s); }
 .star.pink { background: var(--riso-pink); }
+@media (max-width: 760px) { .star { width: min(var(--s, 60px), 30px); } }
 @keyframes twinkle { 50% { scale: 1.15; rotate: calc(var(--r, 0deg) + 12deg); } }
 /* Glitter: capas de puntos de colores que titilan */
 .glitter, .page .glitter {

@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bowlby+One&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&family=Special+Elite&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
+<script src="assets/turn.js"></script>
+<link rel="expect" href="#zine" blocking="render">
 <style>
 /* Portada a pantalla completa: en escritorio todo cabe sin desplazar;
    en celular, título + video + botón llenan la primera pantalla. */
@@ -100,7 +102,7 @@
 </head>
 <body class="cover-body">
 <div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
-<main class="zine">
+<main class="zine" id="zine">
   <article class="page cover" aria-labelledby="t">
       <div class="issue"><span>ZINE Nº 01</span><span>@fresaperdidaa 🍓</span><span class="opt">open agenda ♡</span></div>
       <h1 class="ransom" id="t" aria-label="Glenn"><span aria-hidden="true">G</span><span aria-hidden="true" class="glitter">L</span><span aria-hidden="true">E</span><span aria-hidden="true">N</span><span aria-hidden="true">N</span></h1>

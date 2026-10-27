@@ -33,7 +33,6 @@ document.body.append(tabs);
 
 // ---------- Pie: página anterior / siguiente ----------
 const page = document.querySelector(".page");
-page.classList.add("current");
 const prev = PAGES[idx - 1], next = PAGES[idx + 1];
 const pager = document.createElement("nav");
 pager.className = "pager";
@@ -52,17 +51,63 @@ addEventListener("keydown", e => {
   if (e.key === "ArrowLeft" && prev) go(prev.file, "back");
 });
 
-// Sentido de la animación: hacia atrás si la página destino va antes
-function go(file, dir) { sessionStorage.setItem("zine-dir", dir); location.href = file; }
+// ---------- Pasar página ----------
+// Con View Transitions entre documentos el giro lo hace el CSS. Sin ellas
+// (Firefox), la hoja se va girando con .leaving y después se navega.
+const nativeTurn = "onpagereveal" in window;
+let turning = false;
+function go(file, dir) {
+  if (turning) return;
+  sessionStorage.setItem("zine-dir", dir);
+  if (nativeTurn || reduceMotion) { location.href = file; return; }
+  turning = true;
+  page.classList.add("leaving");
+  if (dir === "back") page.classList.add("back");
+  const done = () => { location.href = file; };
+  page.addEventListener("animationend", done, { once: true });
+  setTimeout(done, 700); // por si animationend no llega
+}
+const pageIndexOf = href => PAGES.findIndex(p => href.split(/[?#]/)[0] === p.file);
 document.addEventListener("click", e => {
-  const a = e.target.closest("a[href$='.html']");
-  if (!a) return;
-  const to = PAGES.findIndex(p => a.getAttribute("href").startsWith(p.file));
-  if (to !== -1) sessionStorage.setItem("zine-dir", to < idx ? "back" : "forward");
+  const a = e.target.closest("a[href]");
+  if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const href = a.getAttribute("href");
+  const to = pageIndexOf(href);
+  if (to === -1 || to === idx) return;
+  e.preventDefault();
+  go(href, to < idx ? "back" : "forward");
 });
-addEventListener("pagereveal", e => {
-  if (e.viewTransition && sessionStorage.getItem("zine-dir") === "back") e.viewTransition.types.add("back");
-});
+// Respaldo: la nueva hoja aparece aclarándose
+if (!nativeTurn && !reduceMotion && sessionStorage.getItem("zine-dir")) page.classList.add("arriving");
+setTimeout(() => sessionStorage.removeItem("zine-dir"), 1200);
+// Volver con el botón "atrás" del navegador no debe dejar la hoja girada
+addEventListener("pageshow", e => { if (e.persisted) { page.classList.remove("leaving", "back"); turning = false; } });
+
+// Esquina doblada para pasar a la siguiente
+if (next) {
+  const curl = document.createElement("a");
+  curl.className = "curl";
+  curl.href = next.file;
+  curl.setAttribute("aria-label", `Pasar a la página ${next.n}: ${next.name}`);
+  curl.innerHTML = `<span aria-hidden="true">p.${next.n} →</span>`;
+  page.append(curl);
+}
+
+// Deslizar el dedo para pasar página (en celulares y tablets)
+let sx = 0, sy = 0, st = 0, swipeOk = false;
+addEventListener("touchstart", e => {
+  const t = e.touches[0];
+  swipeOk = e.touches.length === 1 && !document.querySelector("dialog[open]") &&
+    !e.target.closest("input, textarea, select, [data-drag], .tabs, .scatter");
+  sx = t.clientX; sy = t.clientY; st = performance.now();
+}, { passive: true });
+addEventListener("touchend", e => {
+  if (!swipeOk) return;
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (performance.now() - st > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
+  if (dx < 0 && next) go(next.file, "forward");
+  if (dx > 0 && prev) go(prev.file, "back");
+}, { passive: true });
 
 // ---------- Sellos que "caen" al entrar en pantalla ----------
 const stamps = document.querySelectorAll(".stamp.drop");

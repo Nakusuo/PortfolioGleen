@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
+<script src="assets/turn.js"></script>
+<link rel="expect" href="#zine" blocking="render">
 <style>
 .coupon { border: 3px dashed var(--ink); padding: 32px 28px 28px; position: relative; background: #fff; transition: rotate .5s var(--pop), translate .5s var(--pop); }
 .scissors { position: absolute; top: -20px; left: 18px; background: var(--riso-yellow); padding: 0 8px; font-size: 1.5rem; line-height: 1.4; z-index: 2; }
@@ -40,7 +42,7 @@ fieldset { border: none; padding: 0; margin: 0; }
 </head>
 <body>
 <div class="mockbar">MAQUETA · Zine Nº 01 · el formulario no envía nada todavía</div>
-<main class="zine">
+<main class="zine" id="zine">
   <article class="page pink" aria-labelledby="t">
     <div class="head">
       <h1 class="riso-title" id="t" data-t="Recorta y envía">Recorta y envía</h1>

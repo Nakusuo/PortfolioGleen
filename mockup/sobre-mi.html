@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
+<script src="assets/turn.js"></script>
+<link rel="expect" href="#zine" blocking="render">
 <style>
 .about { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: start; }
 /* Polaroid que se voltea: detrás hay un dato curioso */
@@ -34,7 +36,7 @@
 </head>
 <body>
 <div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
-<main class="zine">
+<main class="zine" id="zine">
   <article class="page" aria-labelledby="t">
     <h1 class="riso-title" id="t" data-t="Hola, soy Glenn" style="margin-bottom:40px">Hola, soy Glenn</h1>
     <div class="about">

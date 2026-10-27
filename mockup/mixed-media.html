@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
 <link rel="stylesheet" href="assets/zine.css">
+<script src="assets/turn.js"></script>
+<link rel="expect" href="#zine" blocking="render">
 <style>
 /* Mesa de collage: las obras se pueden mover y se abren con clic */
 .scatter { position: relative; height: 720px; }
@@ -32,7 +34,7 @@
 </head>
 <body>
 <div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
-<main class="zine">
+<main class="zine" id="zine">
   <article class="page" aria-labelledby="t">
     <div class="head">
       <h1 class="riso-title" id="t" data-t="Mixed media">Mixed media</h1>

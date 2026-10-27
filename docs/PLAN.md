@@ -53,7 +53,12 @@ otra como en dessiejackson.com, pero pasando hojas.
 **Navegación común** (`assets/zine.js`):
 - Pestañas de colores en el borde derecho, como separadores de carpeta. En móvil van abajo.
 - Al pie, botones de página anterior y siguiente. Las flechas ← → del teclado también pasan página.
-- Transición de "pasar hoja" entre páginas con View Transitions. En navegadores sin soporte simplemente cambia de página.
+- **Pasar página como una revista**: la hoja gira en 3D sobre su lomo y se oscurece al levantarse, dejando ver la siguiente debajo; hacia atrás, la anterior vuelve cayendo encima.
+  - Chrome, Edge y Safari 18.2+: con View Transitions entre documentos (`assets/zine.css` + `assets/turn.js` en el `<head>`).
+  - Firefox y navegadores sin soporte: respaldo en `assets/zine.js` que gira la hoja antes de navegar.
+  - Solo se animan `transform` y `filter`, así que es fluido también en celulares.
+- **Esquina doblada** abajo a la derecha de cada página: al pasar el ratón se levanta y lleva a la siguiente.
+- **Deslizar el dedo** a izquierda o derecha pasa página en celulares y tablets (no se activa sobre formularios ni sobre obras que se arrastran).
 - Ficha de obra (lightbox) para cualquier elemento con `data-obra`, con flechas para ver la anterior o la siguiente.
 
 Todo respeta `prefers-reduced-motion`: sin animaciones, con el contenido completo.
