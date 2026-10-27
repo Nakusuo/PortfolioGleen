@@ -110,7 +110,7 @@ html:active-view-transition-type(back)::view-transition-new(sheet) { z-index: 2;
 .folio { position: absolute; bottom: 16px; right: 22px; font: 700 .8rem var(--type); z-index: 6; }
 .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
 .lead { max-width: 60ch; margin: 0 0 24px; }
-@media (max-width: 760px) { .zine { padding: 16px 12px 120px; } }
+@media (max-width: 760px) { .zine { padding: 16px 12px 120px; overflow-x: clip; } }   /* el giro de la hoja no debe dar scroll lateral */
 
 /* ---------- Piezas gráficas reutilizables ---------- */
 .tape { position: absolute; width: 104px; height: 28px; z-index: 4; pointer-events: none; mix-blend-mode: multiply;
@@ -252,3 +252,15 @@ button.dymo[aria-pressed="true"] { background: none; text-decoration: underline 
 .margin-note.red { color: var(--riso-red); }
 @media (max-width: 760px) { .doodle.hide-sm, .margin-note.hide-sm { display: none; } }
 @media (prefers-reduced-motion: reduce) { .doodle.draw { stroke-dashoffset: 0; } }
+
+/* ---------- Botón de idioma EN / ES ---------- */
+.masthead { position: relative; }
+.lang-toggle { position: absolute; right: 72px; top: 50%; translate: 0 -50%; display: flex; gap: 2px; font: 700 .85rem var(--type); }
+.lang-toggle button { min-width: 44px; min-height: 44px; border: 0; background: none; cursor: var(--cursor-hand); padding: 0 6px; letter-spacing: .08em; opacity: .55; }
+.lang-toggle button[aria-pressed="true"] { opacity: 1; text-decoration: underline 2px; text-underline-offset: 5px; }
+.lang-toggle button:hover { opacity: 1; }
+@media (max-width: 760px) { .lang-toggle { right: 4px; } }
+
+/* ---------- Imagen real dentro de un hueco ---------- */
+.asset.has-img { background-size: cover; background-position: center; background-color: #111; }
+.asset.has-img::before { content: none; }

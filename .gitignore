@@ -1,0 +1,5 @@
+# Obras de Glenn: no se suben al repo público hasta que ella lo autorice.
+mockup/assets/obras/*
+!mockup/assets/obras/LEEME.md
+# Video de portada
+mockup/assets/portada.mp4

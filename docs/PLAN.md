@@ -14,6 +14,15 @@ unicornio) y hace collage con fotos propias. En sus historias destacadas tiene
 "noticed!" (artistas que compartieron su arte) y "detrás" (proceso). En su bio
 dice "open agenda!" para los encargos.
 
+## 0.1 Público (actualizado 2026-10-27)
+
+El sitio es para **managers, sellos, agencias de PR y marcas** que quieran
+contratarla, no para fans. Por eso: inglés por defecto con botón EN/ES, tono
+profesional (sin frases tipo "cuando lo vieron ellos 😭"), sus clientes reales
+arriba y Encargos convertido en **Services** con un armador de brief y
+formulario para empresas. Los créditos de clientes salen de sus publicaciones;
+**conviene confirmar con Glenn cómo quiere nombrar cada uno**.
+
 ## 1. Objetivo
 
 Una web que haga tres cosas, en este orden de importancia:

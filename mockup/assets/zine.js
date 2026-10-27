@@ -2,16 +2,18 @@
 // En la web final (Astro) las pestañas y el pie serán componentes; aquí se
 // generan desde PAGES para no repetir el mismo HTML en cada archivo.
 
+// t() y el idioma vienen de i18n.js, que se carga antes
 const PAGES = [
-  { file: "index.html",       n: "01", name: "Portada",     color: "#FFFFFF" },
-  { file: "mixed-media.html", n: "02", name: "Mixed media", color: "#FF48B0" },
-  { file: "ilustracion.html", n: "03", name: "Ilustración", color: "#00A95C" },
-  { file: "fanart.html",      n: "04", name: "Fangirl",     color: "#FF48B0" },
-  { file: "proceso.html",     n: "05", name: "Detrás",      color: "#FFFFFF" },
-  { file: "encargos.html",    n: "06", name: "Encargos ★",  color: "#FFE800" },
-  { file: "sobre-mi.html",    n: "07", name: "Sobre mí",    color: "#FFFFFF" },
-  { file: "contacto.html",    n: "08", name: "Contacto",    color: "#FF48B0" },
+  { file: "index.html",       n: "01", en: "Cover",        es: "Portada",       color: "#FFFFFF" },
+  { file: "mixed-media.html", n: "02", en: "Mixed media",  es: "Mixed media",   color: "#FF48B0" },
+  { file: "ilustracion.html", n: "03", en: "Painting",     es: "Pintura",       color: "#00A95C" },
+  { file: "fanart.html",      n: "04", en: "Music",        es: "Música",        color: "#FF48B0" },
+  { file: "proceso.html",     n: "05", en: "Process",      es: "Proceso",       color: "#FFFFFF" },
+  { file: "encargos.html",    n: "06", en: "Services ★",   es: "Servicios ★",   color: "#FFE800" },
+  { file: "sobre-mi.html",    n: "07", en: "About",        es: "Sobre mí",      color: "#FFFFFF" },
+  { file: "contacto.html",    n: "08", en: "Contact",      es: "Contacto",      color: "#FF48B0" },
 ];
+const nameOf = p => t(p.en, p.es);
 
 // Alto de la barra de maqueta, para que las páginas a pantalla completa la descuenten
 const mast = document.querySelector(".masthead") || { offsetHeight: 0 };
@@ -28,10 +30,13 @@ const idx = Math.max(0, PAGES.findIndex(p => p.file === here));
 // ---------- Pestañas laterales ----------
 const tabs = document.createElement("nav");
 tabs.className = "tabs";
-tabs.setAttribute("aria-label", "Páginas del zine");
-tabs.innerHTML = PAGES.map((p, i) =>
-  `<a href="${p.file}" style="--c:${p.color}" ${i === idx ? 'aria-current="page"' : ""}><b>${p.n}</b>${p.name}</a>`
-).join("");
+const renderTabs = () => {
+  tabs.setAttribute("aria-label", t("Zine pages", "Páginas del zine"));
+  tabs.innerHTML = PAGES.map((p, i) =>
+    `<a href="${p.file}" style="--c:${p.color}" ${i === idx ? 'aria-current="page"' : ""}><b>${p.n}</b>${nameOf(p)}</a>`
+  ).join("");
+};
+renderTabs();
 document.body.append(tabs);
 
 // ---------- Pie: página anterior / siguiente ----------
@@ -39,11 +44,14 @@ const page = document.querySelector(".page");
 const prev = PAGES[idx - 1], next = PAGES[idx + 1];
 const pager = document.createElement("nav");
 pager.className = "pager";
-pager.setAttribute("aria-label", "Pasar página");
-pager.innerHTML =
-  (prev ? `<a href="${prev.file}" rel="prev" data-dir="back">← <span><small>p.${prev.n}</small>${prev.name}</span></a>` : "") +
-  `<span class="kbd" aria-hidden="true">usa ← → para pasar página</span>` +
-  (next ? `<a class="next" href="${next.file}" rel="next"><span><small>p.${next.n}</small>${next.name}</span> →</a>` : "");
+const renderPager = () => {
+  pager.setAttribute("aria-label", t("Turn the page", "Pasar página"));
+  pager.innerHTML =
+    (prev ? `<a href="${prev.file}" rel="prev" data-dir="back">← <span><small>p.${prev.n}</small>${nameOf(prev)}</span></a>` : "") +
+    `<span class="kbd" aria-hidden="true">${t("use ← → to turn the page", "usa ← → para pasar página")}</span>` +
+    (next ? `<a class="next" href="${next.file}" rel="next"><span><small>p.${next.n}</small>${nameOf(next)}</span> →</a>` : "");
+};
+renderPager();
 page.after(pager);
 
 // Teclas ← → pasan página (salvo escribiendo en un campo o con un diálogo abierto)
@@ -91,10 +99,12 @@ if (next) {
   const curl = document.createElement("a");
   curl.className = "curl";
   curl.href = next.file;
-  curl.setAttribute("aria-label", `Pasar a la página ${next.n}: ${next.name}`);
   curl.innerHTML = `<span aria-hidden="true">p.${next.n} →</span>`;
+  const label = () => curl.setAttribute("aria-label", t(`Turn to page ${next.n}: ${next.en}`, `Pasar a la página ${next.n}: ${next.es}`));
+  label(); addEventListener("langchange", label);
   page.append(curl);
 }
+addEventListener("langchange", () => { renderTabs(); renderPager(); });
 
 // Deslizar el dedo para pasar página (en celulares y tablets)
 let sx = 0, sy = 0, st = 0, swipeOk = false;
@@ -122,18 +132,9 @@ else {
   doodles.forEach(d => dio.observe(d));
 }
 
-// ---------- Sellos que "caen" al entrar en pantalla ----------
-const stamps = document.querySelectorAll(".stamp.drop");
-if (reduceMotion) stamps.forEach(s => s.classList.add("in"));
-else {
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-  }), { threshold: .6 });
-  stamps.forEach(s => io.observe(s));
-}
-
 // ---------- Lightbox: cualquier [data-obra] abre su ficha ----------
-// data-obra="Título|Técnica|Tamaño|Año|Estado"
+// data-obra="Title|Technique|Size|Year|Status" y data-obra-es con lo mismo en español.
+// La imagen grande es la misma que el hueco de la obra (data-src).
 const obras = [...document.querySelectorAll("[data-obra]")];
 if (obras.length) {
   const dlg = document.createElement("dialog");
@@ -142,31 +143,44 @@ if (obras.length) {
   dlg.innerHTML = `
     <div class="obra-card">
       <span class="tape" aria-hidden="true"></span>
-      <button class="icon-btn obra-close" aria-label="Cerrar">✕</button>
+      <button class="icon-btn obra-close"></button>
       <div class="asset" id="obra-img"></div>
       <div class="info">
         <span class="dymo" id="obra-n"></span>
         <h2 id="obra-t"></h2>
-        <dl><dt>Técnica</dt><dd id="obra-tec"></dd><dt>Tamaño</dt><dd id="obra-tam"></dd><dt>Año</dt><dd id="obra-y"></dd><dt>Estado</dt><dd id="obra-e"></dd></dl>
-        <p style="margin:0">Nota corta de la artista sobre la pieza.</p>
+        <dl><dt data-l="Technique|Técnica"></dt><dd id="obra-tec"></dd><dt data-l="Size|Tamaño"></dt><dd id="obra-tam"></dd>
+            <dt data-l="Year|Año"></dt><dd id="obra-y"></dd><dt data-l="Status|Estado"></dt><dd id="obra-e"></dd></dl>
         <div class="obra-nav">
-          <button class="icon-btn" data-step="-1" aria-label="Obra anterior">←</button>
-          <button class="icon-btn" data-step="1" aria-label="Obra siguiente">→</button>
-          <a class="btn" href="contacto.html" style="min-height:48px">Quiero algo así</a>
+          <button class="icon-btn" data-step="-1">←</button>
+          <button class="icon-btn" data-step="1">→</button>
+          <a class="btn" href="contacto.html" style="min-height:48px" data-l="Start a project|Empezar un proyecto"></a>
         </div>
       </div>
     </div>`;
   document.body.append(dlg);
   let cur = 0;
   const $ = id => dlg.querySelector("#" + id);
+  const labels = () => {
+    dlg.querySelectorAll("[data-l]").forEach(el => { const [en, es] = el.dataset.l.split("|"); el.textContent = t(en, es); });
+    dlg.querySelector(".obra-close").setAttribute("aria-label", t("Close", "Cerrar"));
+    dlg.querySelector('[data-step="-1"]').setAttribute("aria-label", t("Previous piece", "Obra anterior"));
+    dlg.querySelector('[data-step="1"]').setAttribute("aria-label", t("Next piece", "Obra siguiente"));
+  };
   const show = i => {
     cur = (i + obras.length) % obras.length;
-    const [t, tec, tam, y, est] = obras[cur].dataset.obra.split("|");
-    $("obra-t").textContent = t; $("obra-tec").textContent = tec; $("obra-tam").textContent = tam;
+    const el = obras[cur];
+    const [ti, tec, tam, y, est] = ((lang === "es" && el.dataset.obraEs) || el.dataset.obra).split("|");
+    $("obra-t").textContent = ti; $("obra-tec").textContent = tec; $("obra-tam").textContent = tam;
     $("obra-y").textContent = y; $("obra-e").textContent = est;
     $("obra-n").textContent = `${cur + 1} / ${obras.length}`;
-    $("obra-img").dataset.asset = `${t} en grande`;
+    const src = el.querySelector("[data-src]");
+    const img = $("obra-img");
+    img.dataset.asset = ti;
+    img.style.backgroundImage = src && src.classList.contains("has-img") ? `url("${src.dataset.src}")` : "";
+    img.classList.toggle("has-img", !!(src && src.classList.contains("has-img")));
   };
+  labels();
+  addEventListener("langchange", () => { labels(); if (dlg.open) show(cur); });
   obras.forEach((el, i) => el.addEventListener("click", e => {
     if (el.dataset.dragged) { delete el.dataset.dragged; return; }
     e.preventDefault(); show(i); dlg.showModal();
