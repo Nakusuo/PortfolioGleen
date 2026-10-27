@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+.coupon { border: 3px dashed var(--ink); padding: 32px 28px 28px; position: relative; background: #fff; transition: rotate .5s var(--pop), translate .5s var(--pop); }
+.scissors { position: absolute; top: -20px; left: 18px; background: var(--riso-yellow); padding: 0 8px; font-size: 1.5rem; line-height: 1.4; z-index: 2; }
+.coupon.cut .scissors { animation: snip 1s linear forwards; }
+@keyframes snip { to { left: calc(100% - 50px); } }
+.coupon.done { rotate: -3deg; translate: 0 10px; }
+.coupon form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: grid; gap: 4px; }
+.field.full { grid-column: 1 / -1; }
+.field label, legend { font-weight: 700; text-transform: uppercase; font-size: .85rem; letter-spacing: .05em; }
+input, select, textarea { font: inherit; min-height: 46px; padding: 8px 4px; border: none; border-bottom: 3px solid var(--ink); background: transparent; color: var(--ink); border-radius: 0; }
+textarea { border: 3px solid var(--ink); padding: 10px; line-height: 28px; background-image: repeating-linear-gradient(transparent 0 27px, rgba(0,0,0,.12) 27px 28px); }
+input:focus, select:focus, textarea:focus { outline: none; background-color: var(--riso-yellow); }
+fieldset { border: none; padding: 0; margin: 0; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; }
+.opts label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; cursor: pointer; text-transform: none; letter-spacing: 0; font-size: 1rem; }
+.opts input { min-height: auto; width: 22px; height: 22px; accent-color: var(--riso-red); }
+.ticket { background: var(--riso-yellow); border: 2px solid var(--ink); padding: 10px 12px; font-size: .9rem; }
+.ticket[hidden] { display: none; }
+.err { color: var(--riso-red); font-weight: 700; font-size: .9rem; }
+.err:empty { display: none; }
+[aria-invalid="true"] { border-color: var(--riso-red); }
+.received { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.received[hidden] { display: none; }
+.received .stamp { font-size: clamp(1.4rem, 4vw, 2.4rem); background: rgba(255,255,255,.85); }
+.outro { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 48px; border-top: 3px solid var(--ink); padding-top: 20px; }
+.outro .links { display: flex; gap: 10px; flex-wrap: wrap; }
+.outro a.dymo { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+@media (max-width: 760px) { .coupon form { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · el formulario no envía nada todavía</div>
+<main class="zine">
+  <article class="page pink" aria-labelledby="t">
+    <div class="head">
+      <h1 class="riso-title" id="t" data-t="Recorta y envía">Recorta y envía</h1>
+    </div>
+    <p class="lead">Cuéntame tu idea o solo saluda. Respondo en menos de 48 h.</p>
+
+    <div class="coupon" id="coupon">
+      <span class="scissors" aria-hidden="true">✂</span>
+      <form id="quote" novalidate>
+        <div class="field full ticket" id="ticket" hidden></div>
+        <div class="field"><label for="nombre">Nombre</label><input id="nombre" autocomplete="name" required aria-describedby="nombre-err"><span class="err" id="nombre-err"></span></div>
+        <div class="field"><label for="email">Correo</label><input id="email" type="email" autocomplete="email" required aria-describedby="email-err"><span class="err" id="email-err"></span></div>
+        <fieldset class="field full"><legend>Quiero…</legend>
+          <div class="opts">
+            <label><input type="radio" name="tipo" value="foto"> Foto intervenida</label>
+            <label><input type="radio" name="tipo" value="retrato"> Retrato mixed media</label>
+            <label><input type="radio" name="tipo" value="pintura"> Pintura / ilustración</label>
+            <label><input type="radio" name="tipo" value="otro"> Solo saludar</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="uso">Uso</label><select id="uso"><option>Personal</option><option>Regalo</option><option>Comercial</option></select></div>
+        <div class="field"><label for="fecha">Para cuándo (opcional)</label><input id="fecha" type="date"></div>
+        <div class="field full"><label for="idea">Tu idea</label><textarea id="idea" rows="4" required aria-describedby="idea-help idea-err"></textarea><small id="idea-help">¿Qué foto o artista? ¿Colores, brillo, para quién es? Puedes pegar links.</small><span class="err" id="idea-err"></span></div>
+        <button class="btn" type="submit" id="send">Recortar y enviar ✂</button>
+      </form>
+      <div class="received" id="received" hidden><span class="stamp">¡recibido! ♡<br>te escribo pronto</span></div>
+    </div>
+    <p class="sr-only" role="status" id="status"></p>
+
+    <div class="outro">
+      <span class="hand">fin del zine nº 01 ♡ @fresaperdidaa</span>
+      <div class="links"><a class="dymo" href="#">instagram</a><a class="dymo" href="#">tiktok</a><a class="dymo red" href="#">ko-fi</a></div>
+    </div>
+    <span class="folio">08</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+
+// Si viene desde Encargos, el ticket ya va pegado al cupón
+const q = new URLSearchParams(location.search);
+if (q.get("ticket")) {
+  $("ticket").hidden = false;
+  $("ticket").innerHTML = `<b>TU TICKET:</b> ${q.get("ticket").replace(/</g, "&lt;")}`;
+}
+const tipo = q.get("tipo") && document.querySelector(`[name=tipo][value="${CSS.escape(q.get("tipo"))}"]`);
+if (tipo) tipo.checked = true;
+
+const MSG = { nombre: "Escribe tu nombre.", email: "Escribe un correo válido.", idea: "Cuéntame un poco la idea." };
+$("quote").onsubmit = e => {
+  e.preventDefault();
+  let first = null;
+  for (const id in MSG) {
+    const el = $(id);
+    const bad = !el.value.trim() || (el.type === "email" && !el.checkValidity());
+    el.setAttribute("aria-invalid", bad);
+    $(id + "-err").textContent = bad ? MSG[id] : "";
+    if (bad && !first) first = el;
+  }
+  if (first) return first.focus();
+  // Las tijeras recorren el borde, el cupón se suelta y cae el sello
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("send").disabled = true;
+  $("coupon").classList.add("cut");
+  setTimeout(() => {
+    $("coupon").classList.add("done");
+    $("received").hidden = false;
+    $("status").textContent = "Cupón enviado. Te escribo pronto.";
+  }, reduce ? 0 : 1000);
+};
+</script>
+</body>
+</html>

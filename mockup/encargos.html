@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encargos — Glenn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Rock+Salt&family=Rubik+Mono+One&display=swap">
+<link rel="stylesheet" href="assets/zine.css">
+<style>
+/* Arma tu encargo: el ticket se imprime a medida que eliges */
+.builder { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; align-items: start; }
+.builder fieldset { border: 3px solid var(--ink); background: #fff; padding: 16px 18px 18px; margin: 0 0 18px; }
+.builder legend { font: 400 .85rem var(--stamp); background: var(--ink); color: #fff; padding: 4px 10px; }
+.choice { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.choice label { position: relative; display: grid; gap: 6px; padding: 10px; border: 2px solid var(--ink); cursor: pointer; transition: translate .15s, box-shadow .15s, background .15s; }
+.choice label:hover { translate: -2px -2px; box-shadow: 4px 4px 0 var(--ink); }
+.choice input { position: absolute; opacity: 0; }
+.choice label:has(input:checked) { background: var(--riso-pink); box-shadow: 4px 4px 0 var(--ink); }
+.choice label:has(input:focus-visible) { outline: 3px dashed var(--riso-red); outline-offset: 3px; }
+.choice .asset { aspect-ratio: 1; }
+.choice b { font-size: .95rem; }
+.choice small { font-size: .8rem; }
+.row2 { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+.check { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; cursor: pointer; }
+.check input { width: 24px; height: 24px; accent-color: var(--riso-red); }
+.stepper { display: inline-flex; align-items: center; border: 2px solid var(--ink); }
+.stepper button { width: 44px; height: 44px; border: 0; background: var(--riso-yellow); font: 700 1.3rem var(--type); cursor: pointer; }
+.stepper output { min-width: 48px; text-align: center; font: 400 1.1rem var(--stamp); }
+select { font: inherit; min-height: 44px; border: 2px solid var(--ink); background: #fff; padding: 0 10px; }
+
+.receipt { position: sticky; top: 24px; background: #fff; padding: 26px 22px 46px; font: 400 .92rem/1.5 var(--type); rotate: 1.5deg; box-shadow: 8px 10px 0 rgba(0,0,0,.25); }
+.receipt h2 { text-align: center; font: 400 1.05rem var(--stamp); margin: 0; }
+.receipt .c { text-align: center; margin: 0 0 10px; }
+.receipt hr { border: none; border-top: 2px dashed var(--ink); margin: 10px 0; }
+.line { display: flex; justify-content: space-between; gap: 12px; animation: print .35s steps(4) both; }
+@keyframes print { from { clip-path: inset(0 100% 0 0); } }
+.total { display: flex; justify-content: space-between; font: 400 1.1rem var(--stamp); }
+.barcode { height: 50px; margin-top: 14px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 7px, transparent 7px 9px, var(--ink) 9px 10px, transparent 10px 13px); }
+.receipt .btn { width: 100%; justify-content: center; margin-top: 16px; }
+.note { font-size: .8rem; text-align: center; margin: 10px 0 0; }
+
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+.checks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; font-weight: 700; }
+.checks li::before { content: "☑ "; }
+.checks li.no::before { content: "☒ "; color: var(--riso-red); }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+.steps li { counter-increment: s; display: flex; gap: 14px; align-items: baseline; padding: 8px 0; border-bottom: 2px solid var(--ink); }
+.steps li::before { content: counter(s, decimal-leading-zero); font: 400 1.3rem var(--stamp); }
+h3 { font: 400 1rem var(--stamp); margin: 0 0 14px; }
+details { border-bottom: 2px solid var(--ink); padding: 12px 0; }
+summary { font-weight: 700; cursor: pointer; min-height: 32px; }
+@media (max-width: 900px) { .builder, .rules { grid-template-columns: 1fr; } .receipt { position: relative; top: 0; max-width: 380px; margin: 0 auto; } }
+@media (max-width: 520px) { .choice { grid-template-columns: 1fr; } .choice .asset { display: none; } }
+</style>
+</head>
+<body>
+<div class="mockbar">MAQUETA · Zine Nº 01 · precios de ejemplo: los pondrá ella</div>
+<main class="zine">
+  <article class="page yellow" aria-labelledby="t">
+    <div class="head">
+      <h1 class="riso-title" id="t" data-t="Encargos">Encargos</h1>
+      <span class="stamp drop" style="background:#fff">open agenda!</span>
+    </div>
+    <p class="lead">Arma tu encargo y mira el precio al momento. Cuando te guste, pídelo con ese ticket.</p>
+
+    <div class="builder">
+      <form id="build" onsubmit="return false">
+        <fieldset>
+          <legend>1 · ¿Qué quieres?</legend>
+          <div class="choice">
+            <label><input type="radio" name="base" value="foto" data-p="60" checked><div class="asset" data-asset="ejemplo foto intervenida"></div><b>Foto intervenida</b><small>tu foto de concierto o de tu artista · A4 · ~1 semana</small></label>
+            <label><input type="radio" name="base" value="retrato" data-p="150"><div class="asset" data-asset="ejemplo retrato mixed media"></div><b>Retrato mixed media</b><small>tu foto + pintura + collage · A3 · ~2 semanas</small></label>
+            <label><input type="radio" name="base" value="pintura" data-p="220"><div class="asset" data-asset="ejemplo pintura"></div><b>Pintura / ilustración</b><small>pieza original · ~3 semanas</small></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>2 · Detalles</legend>
+          <div class="row2">
+            <span style="font-weight:700" id="pj-l">Personas extra</span>
+            <div class="stepper" role="group" aria-labelledby="pj-l">
+              <button type="button" data-d="-1" aria-label="Quitar persona">−</button>
+              <output id="pj" aria-live="polite">0</output>
+              <button type="button" data-d="1" aria-label="Añadir persona">+</button>
+            </div>
+            <label class="check">Brillo
+              <select id="fondo"><option value="0">glitter normal</option><option value="40">full pedrería + lentejuelas (+40)</option></select>
+            </label>
+          </div>
+          <div class="row2">
+            <label class="check"><input type="checkbox" id="urg"> Lo necesito en menos de una semana (+30 %)</label>
+            <label class="check"><input type="checkbox" id="com"> Uso comercial (se cotiza aparte)</label>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="receipt torn" aria-labelledby="rt">
+        <h2 id="rt">GLENN STUDIO</h2>
+        <p class="c">ticket de encargo · 2026</p>
+        <hr>
+        <div id="lines"></div>
+        <hr>
+        <div class="total" aria-live="polite"><span>TOTAL</span><span id="total">S/ 60</span></div>
+        <div class="barcode" aria-hidden="true"></div>
+        <a class="btn" id="ask" href="contacto.html">Pedir con este ticket →</a>
+        <p class="note">precio orientativo · se confirma al ver tu idea</p>
+      </aside>
+    </div>
+
+    <div class="rules">
+      <div>
+        <h3>Dibujo / no dibujo</h3>
+        <ul class="checks"><li>Tus artistas favoritos</li><li>Fotos de conciertos</li><li>Retratos tuyos</li><li>Regalos</li><li>Mascotas</li><li class="no">NSFW</li></ul>
+        <h3 style="margin-top:28px">Cómo funciona</h3>
+        <ol class="steps"><li>Me mandas el ticket con tu idea.</li><li>Te confirmo precio y fecha. Reservas con el 50 %.</li><li>Apruebas el boceto (2 rondas de cambios).</li><li>Pagas el resto y recibes tu obra ♡</li></ol>
+      </div>
+      <div>
+        <h3>Preguntas</h3>
+        <details><summary>¿Cómo pago?</summary><p>Yape, Plin, transferencia o PayPal.</p></details>
+        <details><summary>¿Haces envíos del original?</summary><p>Sí, a todo el país. El envío se cotiza según destino.</p></details>
+        <details><summary>¿Puedo usarlo en redes?</summary><p>Sí, con crédito. El uso comercial se cotiza aparte.</p></details>
+        <details><summary>¿Y si no me gusta el boceto?</summary><p>Tienes 2 rondas de cambios incluidas antes de pasar al color.</p></details>
+      </div>
+    </div>
+    <span class="folio">06</span>
+  </article>
+</main>
+<script src="assets/zine.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let pj = 0;
+document.querySelectorAll("[data-d]").forEach(b => b.onclick = () => { pj = Math.min(4, Math.max(0, pj + +b.dataset.d)); $("pj").textContent = pj; render(); });
+document.getElementById("build").addEventListener("change", render);
+
+function render() {
+  const base = document.querySelector("[name=base]:checked");
+  const baseP = +base.dataset.p;
+  const name = base.closest("label").querySelector("b").textContent;
+  const lines = [[name.toUpperCase(), baseP]];
+  if (pj) lines.push([`+ ${pj} persona${pj > 1 ? "s" : ""} extra`, Math.round(baseP * .5) * pj]);
+  if (+$("fondo").value) lines.push(["+ full pedrería", +$("fondo").value]);
+  let sub = lines.reduce((s, l) => s + l[1], 0);
+  if ($("urg").checked) { const u = Math.round(sub * .3); lines.push(["+ urgente (30 %)", u]); sub += u; }
+  if ($("com").checked) lines.push(["+ uso comercial", "a cotizar"]);
+  $("lines").innerHTML = lines.map(([t, p]) => `<div class="line"><span>${t}</span><span>${typeof p === "number" ? "S/ " + p : p}</span></div>`).join("");
+  $("total").textContent = `S/ ${sub}${$("com").checked ? " +" : ""}`;
+  // El ticket viaja al cupón de contacto
+  const resumen = lines.map(([t, p]) => `${t}: ${typeof p === "number" ? "S/ " + p : p}`).join(" · ") + ` · TOTAL S/ ${sub}`;
+  $("ask").href = `contacto.html?tipo=${base.value}&ticket=${encodeURIComponent(resumen)}`;
+}
+render();
+</script>
+</body>
+</html>
