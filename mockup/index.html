@@ -53,7 +53,7 @@
 .peek.on { opacity: 1; scale: 1; }
 
 .desk-hint { grid-area: cta; display: flex; gap: 14px; align-items: center; margin-top: var(--gap); }
-.desk-hint .hand { font-size: .85rem; }
+.desk-hint .drag-hint { white-space: nowrap; }
 .desk-hint .btn, .desk-hint .dymo { flex-shrink: 0; }
 
 /* Video: ocupa toda la altura disponible y deduce el ancho (9:16) */
@@ -68,10 +68,15 @@
 .cutout .tape { top: -14px; left: 30%; rotate: -6deg; }
 .cutout .stamp { position: absolute; left: -36px; bottom: 18%; background: #fff; z-index: 3; font-size: .85rem; mix-blend-mode: normal; }
 
-/* Stickers sueltos sobre la portada */
-.loose { position: absolute; z-index: 8; width: clamp(56px, 11vh, 90px); aspect-ratio: 1; border-radius: 50%; cursor: grab; box-shadow: 0 0 0 3px var(--ink), 4px 6px 0 3px rgba(0,0,0,.2); rotate: var(--r); }
-.loose:active { cursor: grabbing; }
-.l1 { top: 8%; right: 34%; --r: -10deg; } .l2 { bottom: 6%; right: 3%; --r: 12deg; } .l3 { top: 3%; right: 3%; --r: 6deg; border-radius: 30% 70% 60% 40% / 50% 40% 60% 50%; }
+/* Objetos reales de su mesa (fotos recortadas), sueltos y arrastrables */
+.loose { width: clamp(64px, 13vh, 120px); aspect-ratio: 1; }
+/* Van apoyados en los bordes del video, sin tapar texto */
+.l1 { top: 6%; left: -24%; --r: -14deg; aspect-ratio: 3 / 4; }
+.l2 { bottom: -3%; left: -26%; --r: 10deg; width: clamp(80px, 16vh, 140px); aspect-ratio: 5 / 3; }
+.l3 { top: 40%; left: -14%; --r: 24deg; width: clamp(36px, 7vh, 60px); aspect-ratio: 1 / 3; }
+/* Fresa recortada encima del nombre, como las flores sobre el título de Keerthi */
+.ransom { position: relative; width: fit-content; }
+.ransom .fresa { right: calc(var(--fs) * -.55); top: calc(var(--fs) * -.45); width: calc(var(--fs) * .9); aspect-ratio: 1; --r: 14deg; z-index: 2; border-radius: 50%; padding: 4px; }
 
 /* Pantallas muy bajas: se permite desplazar antes que cortar contenido */
 @media (min-width: 861px) and (max-height: 560px) { .cover { height: auto; } .cutout { height: 480px; } }
@@ -87,7 +92,7 @@
   }
   .issue { font-size: .78rem; }
   .issue .opt { display: none; }
-  .ransom { justify-content: center; --fs: min(13vw, 4.2rem); gap: 4px; }
+  .ransom { justify-content: center; justify-self: center; --fs: min(12vw, 4.2rem); gap: 4px; }
   /* Primera pantalla: el video ocupa lo que queda entre el título y el botón */
   .cutout { height: auto; width: min(100%, calc((100svh - var(--bar, 0px) - 300px) * 9 / 16)); min-width: 200px; justify-self: center; rotate: 1.5deg; margin-bottom: 8px; }
   .cutout .stamp { left: auto; right: -6px; bottom: 12%; font-size: .75rem; }
@@ -96,16 +101,22 @@
   .sub { text-align: center; margin-inline: auto; }
   .toc ol { columns: 1; }
   .toc a { min-height: 44px; }
-  .peek, .loose, .desk-hint .hand, .desk-hint [data-reset], .star.hide-sm { display: none; }
+  .peek, .loose, .desk-hint .drag-hint, .desk-hint [data-reset], .star.hide-sm { display: none; }
+  .ransom .fresa { right: calc(var(--fs) * -.4); }
 }
 </style>
 </head>
 <body class="cover-body">
 <div class="mockbar">MAQUETA · Zine Nº 01 · los recuadros con puntos son huecos para sus gráficos</div>
+<header class="masthead">
+  <a href="mixed-media.html">obras</a>
+  <a class="badge" href="index.html" aria-label="Glenn, volver a la portada">glenn<br>fresa<br>perdida</a>
+  <a href="encargos.html">encargos</a>
+</header>
 <main class="zine" id="zine">
   <article class="page cover" aria-labelledby="t">
       <div class="issue"><span>ZINE Nº 01</span><span>@fresaperdidaa 🍓</span><span class="opt">open agenda ♡</span></div>
-      <h1 class="ransom" id="t" aria-label="Glenn"><span aria-hidden="true">G</span><span aria-hidden="true" class="glitter">L</span><span aria-hidden="true">E</span><span aria-hidden="true">N</span><span aria-hidden="true">N</span></h1>
+      <h1 class="ransom" id="t" aria-label="Glenn"><span aria-hidden="true">G</span><span aria-hidden="true" class="glitter">L</span><span aria-hidden="true">E</span><span aria-hidden="true">N</span><span aria-hidden="true">N</span><i class="asset obj fresa" data-asset="fresa" aria-hidden="true"></i></h1>
       <p class="sub">Artista visual ☆ fangirl ☆ mixed media. Pinto encima de tus fotos favoritas con acrílico, glitter, pedrería y stickers. <span class="hand">me gusta darle color a mi mundo</span></p>
 
       <div class="toc-wrap">
@@ -127,7 +138,7 @@
 
       <div class="desk-hint">
         <a class="btn" href="mixed-media.html">Abrir el zine →</a>
-        <span class="hand">psst… los stickers se mueven</span>
+        <span class="drag-hint" aria-hidden="true">✥ arrastra los objetos</span>
         <button class="dymo" data-reset>ordenar</button>
       </div>
 
@@ -137,12 +148,13 @@
       <div class="asset reel-missing" id="reel-missing" data-asset="falta assets/portada.mp4 (el video del reel)" hidden></div>
       <button class="play" id="reel-btn" aria-label="Pausar video" hidden>❚❚</button>
       <span class="stamp drop">open<br>agenda!</span>
+      <div class="asset obj loose l1" data-drag data-asset="foto recortada: frasco de glitter" aria-hidden="true"></div>
+      <div class="asset obj loose l2" data-drag data-asset="foto recortada: entrada de concierto" aria-hidden="true"></div>
+      <div class="asset obj loose l3" data-drag data-asset="pincel" aria-hidden="true"></div>
+
       <span class="star" style="bottom:-18px;right:-18px;--s:44px;--r:20deg;--d:1.6s" aria-hidden="true"></span>
     </div>
 
-    <div class="asset loose l1" data-drag data-asset="sticker" aria-hidden="true"></div>
-    <div class="asset loose l2" data-drag data-asset="sticker" aria-hidden="true"></div>
-    <div class="asset loose l3" data-drag data-asset="doodle" aria-hidden="true"></div>
     <span class="star hide-sm" style="top:4%;right:calc(9vh * 3);--s:44px;--r:-12deg" aria-hidden="true"></span>
     <span class="star pink hide-sm" style="top:-4px;left:-4px;--s:34px;--r:10deg;--d:.8s" aria-hidden="true"></span>
     <span class="folio">01</span>
